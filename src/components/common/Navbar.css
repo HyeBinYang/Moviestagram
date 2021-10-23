@@ -1,0 +1,55 @@
+@import url("../../css/common.css");
+
+#navbar {
+  width: 90vw;
+  background-color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+}
+
+.navbar__logo {
+  color: var(--color-black);
+  font-size: 36px;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: "Dancing Script", cursive;
+}
+
+.navbar__search {
+  width: 30%;
+  height: 20px;
+  padding: 10px;
+  background-color: var(--color-light-gray);
+  border: none;
+  font-size: 15px;
+}
+
+.navbar__search:focus {
+  outline: none;
+}
+
+.navbar__search::placeholder {
+  font-size: 15px;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.navbar__menu {
+  display: flex;
+}
+
+.menu {
+  list-style: none;
+  font-size: 18px;
+}
+
+.menu:first-child {
+  margin-right: 60px;
+}
+
+.menu > a {
+  color: var(--color-black);
+  font-size: 32px;
+}
