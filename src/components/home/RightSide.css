@@ -2,6 +2,48 @@
   width: 0;
   flex-grow: 1;
   flex-shrink: 0;
-  border: 1px solid black;
   margin-bottom: 20px;
+}
+
+.rightside__user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.rightside__user > i {
+  font-size: 48px;
+  color: green;
+  margin-right: 15px;
+}
+
+.rightside__user > span {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.recommend__movies {
+  display: flex;
+  flex-direction: column;
+}
+
+.movie {
+  padding: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  display: flex;
+}
+
+.movie:hover {
+  background-color: rgb(240, 238, 238);
+}
+
+.movie > img {
+  width: 80px;
+  height: 90px;
+  margin-right: 12px;
+}
+
+.movie > span {
+  display: block;
 }
