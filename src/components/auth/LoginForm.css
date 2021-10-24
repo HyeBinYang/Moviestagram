@@ -5,7 +5,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 3px solid rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   padding: 20px 80px 50px 80px;
   display: flex;
@@ -29,6 +29,8 @@
 
 .loginform__id:focus {
   outline: none;
+  border: 1px solid rgba(0, 0, 0, 0);
+  box-shadow: 0 0 2px 4px #90caf9;
 }
 
 .loginform__password {
@@ -42,6 +44,8 @@
 
 .loginform__password:focus {
   outline: none;
+  border: 1px solid rgba(0, 0, 0, 0);
+  box-shadow: 0 0 2px 4px #90caf9;
 }
 
 .loginform__btn {

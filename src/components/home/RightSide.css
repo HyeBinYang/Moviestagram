@@ -1,0 +1,7 @@
+#rightside {
+  width: 0;
+  flex-grow: 1;
+  flex-shrink: 0;
+  border: 1px solid black;
+  margin-bottom: 20px;
+}

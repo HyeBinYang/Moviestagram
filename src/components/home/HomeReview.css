@@ -1,0 +1,116 @@
+#home-review {
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-review__user {
+  padding: 10px 20px;
+}
+
+.home-review__user > i {
+  font-size: 25px;
+  color: green;
+  margin-right: 8px;
+}
+
+.home-review__user > span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.home-review__photo {
+  width: 100%;
+}
+
+.home-review__photo > img {
+  width: 100%;
+  height: 100%;
+}
+
+.home-review__icon {
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+.home-review__icon > i {
+  margin-right: 18px;
+  font-size: 32px;
+}
+
+.home-review__likecount {
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+.home-review__description {
+  padding: 0 20px;
+}
+
+.description__username {
+  margin: 0;
+  font-weight: bold;
+}
+
+.description__content {
+  margin: 0;
+  width: 100%;
+  height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.description__more {
+  margin: 5px 0;
+  padding: 0;
+  color: #b8b6b6;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.description__more:hover {
+  color: #6d6b6b;
+}
+
+.home-review__comments {
+  padding: 0 20px;
+}
+
+.comments__all {
+  margin: 5px 0;
+  padding: 0;
+  color: #b8b6b6;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.comments__comment {
+  display: flex;
+  margin-bottom: 5px;
+  position: relative;
+}
+.comment__description {
+  flex-basis: 90%;
+}
+
+.comment__description > b {
+  margin-right: 5px;
+}
+
+.comment__description > span {
+  color: navy;
+  margin-right: 5px;
+}
+
+.comment__like {
+  align-self: center;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}

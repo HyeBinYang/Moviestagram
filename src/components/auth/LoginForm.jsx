@@ -4,7 +4,7 @@ import "./LoginForm.css";
 function LoginForm() {
   return (
     <div id="loginform">
-      <h1 className="loginform__title">MovieStagram</h1>
+      <h1 className="loginform__title">Moviestagram</h1>
       <input className="loginform__id" type="text" placeholder="아이디" />
       <input className="loginform__password" type="password" placeholder="비밀번호" />
       <button className="loginform__btn">로그인</button>
