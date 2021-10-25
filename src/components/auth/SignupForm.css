@@ -20,8 +20,7 @@
 }
 
 .signupform__id {
-  width: calc(100% - 20px);
-  height: 20px;
+  width: 100%;
   padding: 10px;
   font-size: 18px;
   margin-bottom: 18px;
@@ -35,8 +34,7 @@
 }
 
 .signupform__email {
-  width: calc(100% - 20px);
-  height: 20px;
+  width: 100%;
   padding: 10px;
   font-size: 18px;
   margin-bottom: 18px;
@@ -50,8 +48,7 @@
 }
 
 .signupform__password {
-  width: calc(100% - 20px);
-  height: 20px;
+  width: 100%;
   padding: 10px;
   font-size: 18px;
   margin-bottom: 18px;
