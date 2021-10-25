@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./HomeReview.css";
 
 function HomeReview() {
+  const [comment, setComment] = useState();
+
+  const resizeTextareaHeight = (e) => {
+    e.target.style.height = "40px";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  };
+
+  const writeComment = (e) => {
+    setComment(e.target.value);
+    resizeTextareaHeight(e);
+  };
+
   return (
     <div id="home-review">
       <div className="home-review__user">
@@ -33,7 +45,7 @@ function HomeReview() {
         <div className="comments__comment">
           <div className="comment__description">
             <b>username</b>
-            <span>@to</span>
+            <a href="#">@to</a>
             댓글내용
           </div>
           <div className="comment__like">
@@ -43,13 +55,17 @@ function HomeReview() {
         <div className="comments__comment">
           <div className="comment__description">
             <b>username</b>
-            <span>@to</span>
+            <a href="#">@to</a>
             댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
           </div>
           <div className="comment__like">
             <i class="far fa-heart"></i>
           </div>
         </div>
+      </div>
+      <div className="home-review__write">
+        <textarea type="text" placeholder="댓글 달기" onChange={writeComment} />
+        <button>게시</button>
       </div>
     </div>
   );

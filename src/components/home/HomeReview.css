@@ -103,14 +103,48 @@
   margin-right: 5px;
 }
 
-.comment__description > span {
+.comment__description > a {
   color: navy;
   margin-right: 5px;
+  text-decoration: none;
 }
 
 .comment__like {
   align-self: center;
   position: absolute;
   right: 10px;
+  cursor: pointer;
+}
+
+.home-review__write {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+}
+
+.home-review__write > textarea {
+  width: 90%;
+  height: 40px;
+  padding: 10px 10px;
+  line-height: 20px;
+  font-size: 16px;
+  border: none;
+  resize: none;
+  overflow-y: hidden;
+}
+
+.home-review__write > textarea:focus {
+  outline: none;
+}
+
+.home-review__write > button {
+  width: 10%;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background-color: white;
+  color: lightblue;
   cursor: pointer;
 }

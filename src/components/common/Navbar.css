@@ -19,11 +19,16 @@
 
 .navbar__search {
   width: 30%;
-  height: 20px;
   padding: 10px;
   background-color: var(--color-light-gray);
   border: none;
   font-size: 15px;
+}
+
+@media screen and (max-width: 650px) {
+  .navbar__search {
+    display: none;
+  }
 }
 
 .navbar__search:focus {

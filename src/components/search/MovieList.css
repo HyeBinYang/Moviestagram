@@ -1,0 +1,29 @@
+#movielist {
+  width: 1280px;
+  margin: 20px auto 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1280px) {
+  #movielist {
+    width: 960px;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  #movielist {
+    width: 640px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  #movielist {
+    width: 320px;
+  }
+}
+
+.movie {
+  width: 300px;
+  margin: 10px;
+}
