@@ -1,0 +1,55 @@
+#reviewdetail {
+  display: flex;
+  flex-direction: column;
+}
+
+.reviewdetail__movie {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.info__group > dd {
+  position: relative;
+  bottom: 21px;
+  left: 25px;
+}
+
+.seperator {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  border: 0.5px solid rgb(221, 221, 221);
+  margin: 0 8px;
+  vertical-align: middle;
+}
+
+.movie__poster {
+  width: 300px;
+  height: 300px;
+  margin-right: 30px;
+}
+
+.performers {
+  display: flex;
+}
+
+.performers__info {
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.performers__info > img {
+  width: 150px;
+  height: 150px;
+}
+
+.performers__info > p {
+  margin: 5px 0;
+}
+
+.performers__info > p:nth-child(3) {
+  color: rgba(0, 0, 0, 0.3);
+}

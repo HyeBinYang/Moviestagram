@@ -7,12 +7,13 @@ import LoginForm from "./components/auth/LoginForm";
 import SignupForm from "./components/auth/SignupForm";
 import Home from "./components/home/Home";
 import MovieList from "./components/search/MovieList";
+import MovieDetail from "./components/review/MovieDetail";
 
 function App() {
   return (
     <div>
       <Navbar />
-      <LoginForm />
+      <MovieDetail />
     </div>
   );
 }

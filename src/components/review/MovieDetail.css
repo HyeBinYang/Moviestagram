@@ -1,0 +1,6 @@
+#moviedetail {
+  width: 1600px;
+  margin: 40px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+}
