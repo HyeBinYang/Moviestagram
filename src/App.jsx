@@ -9,12 +9,15 @@ import Home from "./components/home/Home";
 import MovieList from "./components/search/MovieList";
 import MovieDetail from "./components/review/MovieDetail";
 import Profile from "./components/profile/Profile";
+import ReviewModal from "./components/review/ReviewModal";
+import Shadow from "./components/common/Shadow";
 
 function App() {
   return (
     <div>
       <Navbar />
-      <Profile />
+      <ReviewModal />
+      <Shadow />
     </div>
   );
 }
