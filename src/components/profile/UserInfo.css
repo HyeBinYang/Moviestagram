@@ -1,0 +1,50 @@
+#userinfo {
+  display: flex;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.userinfo__image {
+  width: 200px;
+  height: 200px;
+  margin-right: 150px;
+}
+
+.userinfo__image > i {
+  font-size: 200px;
+  color: green;
+}
+
+.detail__username {
+  font-size: 42px;
+  margin-bottom: 24px;
+}
+
+.detail__username > span {
+  margin-right: 20px;
+}
+
+.detail__username > i {
+  cursor: pointer;
+  color: rgb(83, 82, 82);
+}
+
+.detail__info {
+  font-size: 18px;
+}
+
+.info__review-count {
+  margin-right: 36px;
+}
+
+@media screen and (max-width: 750px) {
+  #userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .userinfo__image {
+    margin: 0;
+  }
+}
