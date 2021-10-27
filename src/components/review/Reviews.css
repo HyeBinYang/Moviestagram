@@ -6,10 +6,3 @@
   padding-top: 30px;
   border-top: 2px solid rgba(0, 0, 0, 0.3);
 }
-
-.review {
-  width: 400px;
-  height: 400px;
-  margin: 0 20px;
-  cursor: pointer;
-}

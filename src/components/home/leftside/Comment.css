@@ -1,0 +1,25 @@
+.comments__comment {
+  display: flex;
+  margin-bottom: 5px;
+  position: relative;
+}
+.comment__description {
+  flex-basis: 90%;
+}
+
+.comment__description > b {
+  margin-right: 5px;
+}
+
+.comment__description > a {
+  color: navy;
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+.comment__like {
+  align-self: center;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}

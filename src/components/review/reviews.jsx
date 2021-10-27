@@ -1,14 +1,26 @@
 import React from "react";
 import "./Reviews.css";
+import { Link, useLocation } from "react-router-dom";
 
-export default function reviews() {
+import Review from "./Review";
+
+export default function Reviews() {
+  const location = useLocation();
+
   return (
     <div id="reviews">
-      <img src="logo512.png" alt="Review image" className="review" />
-      <img src="logo512.png" alt="Review image" className="review" />
-      <img src="logo512.png" alt="Review image" className="review" />
-      <img src="logo192.png" alt="Review image" className="review" />
-      <img src="logo512.png" alt="Review image" className="review" />
+      <Link
+        to={{
+          pathname: `/review/${123}`,
+          state: { background: location },
+        }}
+      >
+        <Review />
+      </Link>
+      <Review />
+      <Review />
+      <Review />
+      <Review />
     </div>
   );
 }

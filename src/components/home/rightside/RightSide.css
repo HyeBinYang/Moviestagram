@@ -9,6 +9,8 @@
   display: flex;
   align-items: center;
   margin-bottom: 50px;
+  text-decoration: none;
+  color: #000000;
 }
 
 .rightside__user > i {
@@ -27,23 +29,7 @@
   flex-direction: column;
 }
 
-.movie {
-  padding: 10px;
-  margin-bottom: 15px;
-  cursor: pointer;
-  display: flex;
-}
-
-.movie:hover {
-  background-color: rgb(240, 238, 238);
-}
-
-.movie > img {
-  width: 80px;
-  height: 90px;
-  margin-right: 12px;
-}
-
-.movie > span {
-  display: block;
+.recommend__movies > a {
+  text-decoration: none;
+  color: #000000;
 }

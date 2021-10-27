@@ -1,7 +1,15 @@
 import React from "react";
 import "./ReviewModal.css";
 
+import { useHistory } from "react-router-dom";
+
 export default function ReviewModal() {
+  const history = useHistory();
+
+  const goBack = () => {
+    history.goBack();
+  };
+
   return (
     <div id="reviewmodal">
       <img src="https://picsum.photos/200/300" alt="review image" className="reviewmodal__image" />
@@ -11,7 +19,7 @@ export default function ReviewModal() {
             <i class="fas fa-seedling"></i>
             <span>skdisk3895</span>
           </div>
-          <i class="fas fa-times"></i>
+          <i class="fas fa-times" onClick={() => goBack()}></i>
         </div>
         <div className="info__content">
           <div className="content__user">

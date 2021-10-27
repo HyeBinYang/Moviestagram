@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./HomeReview.css";
+import { Link } from "react-router-dom";
+
+import Comment from "./Comment";
 
 function HomeReview() {
   const [comment, setComment] = useState();
@@ -16,12 +19,12 @@ function HomeReview() {
 
   return (
     <div id="home-review">
-      <div className="home-review__user">
+      <Link to={`/user/${"skdisk3895"}`} className="home-review__user">
         <i class="fas fa-seedling"></i>
         <span>skdisk3895</span>
-      </div>
+      </Link>
       <div className="home-review__photo">
-        <img src="logo512.png" alt="User's photo" />
+        <img src="https://picsum.photos/700" alt="User's photo" />
       </div>
       <div className="home-review__icon">
         <i class="far fa-heart"></i>
@@ -42,26 +45,8 @@ function HomeReview() {
       </div>
       <div className="home-review__comments">
         <button className="comments__all">댓글 n개 모두 보기</button>
-        <div className="comments__comment">
-          <div className="comment__description">
-            <b>username</b>
-            <a href="#">@to</a>
-            댓글내용
-          </div>
-          <div className="comment__like">
-            <i class="far fa-heart"></i>
-          </div>
-        </div>
-        <div className="comments__comment">
-          <div className="comment__description">
-            <b>username</b>
-            <a href="#">@to</a>
-            댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
-          </div>
-          <div className="comment__like">
-            <i class="far fa-heart"></i>
-          </div>
-        </div>
+        <Comment />
+        <Comment />
       </div>
       <div className="home-review__write">
         <textarea type="text" placeholder="댓글 달기" onChange={writeComment} />

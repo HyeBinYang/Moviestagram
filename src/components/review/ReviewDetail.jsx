@@ -5,7 +5,7 @@ export default function ReviewDetail() {
   return (
     <div id="reviewdetail">
       <div className="reviewdetail__movie">
-        <img src="logo192.png" alt="poster" className="movie__poster" />
+        <img src="https://picsum.photos/300" alt="poster" className="movie__poster" />
         <div className="movie__info">
           <h1 className="info__title">니모를 찾아서</h1>
           <div className="info__subtitle">
@@ -65,12 +65,12 @@ export default function ReviewDetail() {
         <h1>감독 및 출연</h1>
         <div className="performers">
           <div className="performers__info">
-            <img src="logo192.png" alt="director" />
+            <img src="https://picsum.photos/200" alt="director" />
             <p>앤드류 스탠톤</p>
             <p>감독</p>
           </div>
           <div className="performers__info">
-            <img src="logo512.png" alt="actor" />
+            <img src="https://picsum.photos/200" alt="actor" />
             <p>앨버트 브룩스</p>
             <p>말린 목소리 역</p>
           </div>

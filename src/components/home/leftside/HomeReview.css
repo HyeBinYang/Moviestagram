@@ -1,6 +1,6 @@
 #home-review {
   width: 100%;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   margin-bottom: 20px;
   display: flex;
@@ -9,6 +9,7 @@
 
 .home-review__user {
   padding: 10px 20px;
+  text-decoration: none;
 }
 
 .home-review__user > i {
@@ -18,6 +19,7 @@
 }
 
 .home-review__user > span {
+  color: #000000;
   font-size: 18px;
   font-weight: bold;
 }
@@ -28,7 +30,7 @@
 
 .home-review__photo > img {
   width: 100%;
-  height: 100%;
+  height: 500px;
 }
 
 .home-review__icon {
@@ -87,32 +89,6 @@
   color: #b8b6b6;
   border: none;
   background-color: white;
-  cursor: pointer;
-}
-
-.comments__comment {
-  display: flex;
-  margin-bottom: 5px;
-  position: relative;
-}
-.comment__description {
-  flex-basis: 90%;
-}
-
-.comment__description > b {
-  margin-right: 5px;
-}
-
-.comment__description > a {
-  color: navy;
-  margin-right: 5px;
-  text-decoration: none;
-}
-
-.comment__like {
-  align-self: center;
-  position: absolute;
-  right: 10px;
   cursor: pointer;
 }
 
