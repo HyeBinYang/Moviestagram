@@ -7,7 +7,7 @@ import SignupForm from "../../pages/auth/SignupForm";
 import MovieList from "../../pages/search/MovieList";
 import Profile from "../../pages/profile/Profile";
 import MovieDetail from "../../pages/movie-detail/MovieDetail";
-import WritingModal from "../../pages/writing/WritingModal";
+import Writing from "../../pages/writing/Writing";
 import Review from "../../pages/review/Review";
 
 export default function Main() {
@@ -18,7 +18,7 @@ export default function Main() {
     <div id="main">
       <Switch location={background || location}>
         <Route exact path="/" component={Home} />
-        <Route path="/write" component={WritingModal} />
+        <Route path="/write" component={Writing} />
         <Route path="/login" component={LoginForm} />
         <Route path="/signup" component={SignupForm} />
         <Route path="/search" component={MovieList} />
@@ -27,7 +27,7 @@ export default function Main() {
         <Route path="/review/:review_id" component={Review} />
       </Switch>
       {background && <Route path="/review/:review_id" component={Review} />}
-      {background && <Route path="/write" component={WritingModal} />}
+      {background && <Route path="/write" component={Writing} />}
     </div>
   );
 }
