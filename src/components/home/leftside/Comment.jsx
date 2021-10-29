@@ -1,17 +1,19 @@
 import React from "react";
 import "./Comment.css";
+
 import { Link } from "react-router-dom";
 
-export default function Comment() {
+export default function Comment({ comment }) {
   return (
     <div className="comments__comment">
       <div className="comment__description">
-        <b>username</b>
-        <Link to={`/user/${"skdisk3895"}`}>@skdisk3895</Link>
-        댓글내용
+        <Link to={`/user/${comment.username}`}>
+          <b>{comment.username}</b>
+        </Link>
+        {comment.body}
       </div>
       <div className="comment__like">
-        <i class="far fa-heart"></i>
+        <i className="far fa-heart"></i>
       </div>
     </div>
   );

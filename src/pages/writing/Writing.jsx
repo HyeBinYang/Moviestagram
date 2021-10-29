@@ -4,9 +4,9 @@ import Shadow from "../../components/common/Shadow";
 
 export default function Writing() {
   return (
-    <div>
+    <>
       <WritingModal />
       <Shadow />
-    </div>
+    </>
   );
 }

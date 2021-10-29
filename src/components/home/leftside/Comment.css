@@ -12,7 +12,7 @@
 }
 
 .comment__description > a {
-  color: navy;
+  color: #000000;
   margin-right: 5px;
   text-decoration: none;
 }

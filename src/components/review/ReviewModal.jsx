@@ -16,14 +16,14 @@ export default function ReviewModal() {
       <div className="reivewmodal__info">
         <div className="info__username">
           <div className="username">
-            <i class="fas fa-seedling"></i>
+            <i className="fas fa-seedling"></i>
             <span>skdisk3895</span>
           </div>
-          <i class="fas fa-times" onClick={() => goBack()}></i>
+          <i className="fas fa-times" onClick={() => goBack()}></i>
         </div>
         <div className="info__content">
           <div className="content__user">
-            <i class="fas fa-seedling"></i>
+            <i className="fas fa-seedling"></i>
             <span>skdisk3895</span>
           </div>
           <span>
@@ -37,23 +37,23 @@ export default function ReviewModal() {
           <a href="#">#니모를 찾아서</a>
         </div>
         <div className="info__rate">
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
         </div>
         <div className="info__period">1시간 전</div>
         <div className="info__comments">
           <div className="comment">
             <div className="comment__user">
               <div className="user__info">
-                <i class="fas fa-seedling"></i>
+                <i className="fas fa-seedling"></i>
                 <b>skdisk7368</b>
               </div>
               <div className="setting__btn">
-                <i class="fas fa-ellipsis-v"></i>
-                <i class="far fa-heart"></i>
+                <i className="fas fa-ellipsis-v"></i>
+                <i className="far fa-heart"></i>
               </div>
             </div>
             <div className="comment__description">

@@ -7,7 +7,7 @@ export default function WritingModal() {
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState(null);
 
-  function renderFileButton() {
+  const renderFileButton = () => {
     return (
       <div className="writingmodal__left-before">
         <p>640px * 640px 크기를 추천합니다.</p>
@@ -32,15 +32,13 @@ export default function WritingModal() {
         />
       </div>
     );
-  }
+  };
 
   const renderImage = () => {
     return (
       <div className="writingmodal__left-upload">
         <div className="review__image">
-          <div className="image__centered">
-            <img src={photo.previewURL} alt="" />
-          </div>
+          <img src={"https://picsum.photos/600"} alt="" />
         </div>
       </div>
     );

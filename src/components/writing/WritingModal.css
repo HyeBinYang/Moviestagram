@@ -42,26 +42,12 @@
   overflow: hidden;
 }
 
-.image__centered {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  -webkit-transform: translate(50%, 50%);
-  -ms-transform: translate(50%, 50%);
-  transform: translate(50%, 50%);
-}
-
-.image__centered > img {
+.review__image > img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  height: auto;
 }
 
 .left__image-btn {

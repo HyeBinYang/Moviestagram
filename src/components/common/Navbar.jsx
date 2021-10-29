@@ -31,7 +31,7 @@ export default function Navbar() {
       <ul className="navbar__menu">
         <li className="menu">
           <Link to="/">
-            <i class="fas fa-home"></i>
+            <i className="fas fa-home"></i>
           </Link>
         </li>
         <li className="menu">
@@ -41,11 +41,11 @@ export default function Navbar() {
               state: { background: location },
             }}
           >
-            <i class="fas fa-pen"></i>
+            <i className="fas fa-pen"></i>
           </Link>
         </li>
         <li className="menu">
-          <i class="far fa-heart"></i>
+          <i className="far fa-heart"></i>
         </li>
       </ul>
     </nav>

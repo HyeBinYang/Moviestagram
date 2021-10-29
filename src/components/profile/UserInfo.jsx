@@ -5,12 +5,12 @@ export default function UserInfo() {
   return (
     <div id="userinfo">
       <div className="userinfo__image">
-        <i class="fas fa-seedling"></i>
+        <i className="fas fa-seedling"></i>
       </div>
       <div className="userinfo__detail">
         <div className="detail__username">
           <span>skdisk3895</span>
-          <i class="fas fa-cog"></i>
+          <i className="fas fa-cog"></i>
         </div>
         <div className="detail__info">
           <span className="info__review-count">
