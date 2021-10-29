@@ -10,6 +10,7 @@
 
 #shadow > i {
   position: absolute;
+  color: #000000;
   top: 50px;
   right: 100px;
   font-size: 48px;

@@ -1,9 +1,9 @@
 import React from "react";
-import "./Home.css";
+import "./styles/Home.css";
 
 // Component
-import LeftSide from "../../components/home/leftside/LeftSide";
-import RightSide from "../../components/home/rightside/RightSide";
+import LeftSide from "../components/home/leftside/LeftSide";
+import RightSide from "../components/home/rightside/RightSide";
 
 export default function Home() {
   return (

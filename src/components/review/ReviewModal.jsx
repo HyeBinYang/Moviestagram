@@ -1,7 +1,7 @@
 import React from "react";
 import "./ReviewModal.css";
 
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export default function ReviewModal() {
   const history = useHistory();
@@ -19,7 +19,7 @@ export default function ReviewModal() {
             <i className="fas fa-seedling"></i>
             <span>skdisk3895</span>
           </div>
-          <i className="fas fa-times" onClick={() => goBack()}></i>
+          <i className="fas fa-times" onClick={goBack}></i>
         </div>
         <div className="info__content">
           <div className="content__user">
@@ -34,7 +34,7 @@ export default function ReviewModal() {
           </span>
         </div>
         <div className="info__movie">
-          <a href="#">#니모를 찾아서</a>
+          <Link to={`/movie/${2523}/reviews`}>#니모를 찾아서</Link>
         </div>
         <div className="info__rate">
           <i className="fas fa-star"></i>

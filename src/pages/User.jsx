@@ -1,7 +1,7 @@
 import React from "react";
-import "./Profile.css";
-import UserInfo from "../../components/profile/UserInfo";
-import UserReviews from "../../components/profile/UserReviews";
+import "./styles/User.css";
+import UserInfo from "../components/profile/UserInfo";
+import UserReviews from "../components/profile/UserReviews";
 
 export default function Profile() {
   return (

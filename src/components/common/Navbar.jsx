@@ -7,27 +7,21 @@ export default function Navbar() {
   const location = useLocation();
   const [movieInput, setMovieInput] = useState("");
 
+  const searchMovie = (e) => {
+    if (e.key === "Enter") {
+      history.push({
+        pathname: "/movies",
+        search: `?movie=${movieInput}`,
+      });
+    }
+  };
+
   return (
     <nav id="navbar">
       <Link className="navbar__logo" to="/">
         Moviestagram
       </Link>
-      <input
-        onChange={(e) => {
-          setMovieInput(e.target.value);
-        }}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            history.push({
-              pathname: "/search",
-              search: `?movie=${movieInput}`,
-            });
-          }
-        }}
-        className="navbar__search"
-        type="text"
-        placeholder="영화검색"
-      />
+      <input onChange={(e) => setMovieInput(e.target.value)} onKeyPress={searchMovie} className="navbar__search" type="text" placeholder="영화검색" />
       <ul className="navbar__menu">
         <li className="menu">
           <Link to="/">

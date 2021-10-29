@@ -1,6 +1,6 @@
 import React from "react";
 import "./MovieList.css";
-import MoviePoster from "../../components/search/MoviePoster";
+import MoviePoster from "./MoviePoster";
 
 export default function MovieList() {
   return (

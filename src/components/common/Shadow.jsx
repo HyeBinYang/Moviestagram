@@ -5,14 +5,14 @@ import { useHistory } from "react-router-dom";
 export default function Shadow() {
   const history = useHistory();
 
+  const goBack = (e) => {
+    history.goBack();
+    e.stopPropagation();
+  };
+
   return (
-    <div
-      id="shadow"
-      onClick={() => {
-        history.goBack();
-      }}
-    >
-      <i className="fas fa-times" onClick={() => history.goBack()}></i>
+    <div id="shadow" onClick={goBack}>
+      <i className="fas fa-times" onClick={goBack}></i>
     </div>
   );
 }
