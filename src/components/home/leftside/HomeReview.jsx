@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import Comment from "./Comment";
 
-function HomeReview() {
+export default function HomeReview() {
   // State
   const location = useLocation();
   const [comments, setComments] = useState([
@@ -95,6 +95,16 @@ function HomeReview() {
             </button>
           </>
         )}
+        <div className="description__hashtag">
+          <Link to={`/movie/${2523}/reviews`}>#니모를 찾아서</Link>
+        </div>
+        <div className="description__rate">
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+        </div>
       </div>
       <div className="home-review__comments">
         {comments.length > 0 ? (
@@ -125,5 +135,3 @@ function HomeReview() {
     </div>
   );
 }
-
-export default HomeReview;

@@ -5,7 +5,7 @@ import "./App.css";
 import Navbar from "./components/common/Navbar";
 import Main from "./components/common/Main";
 
-function App() {
+export default function App() {
   return (
     <div>
       <Navbar />
@@ -13,5 +13,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

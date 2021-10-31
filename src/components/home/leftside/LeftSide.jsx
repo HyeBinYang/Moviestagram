@@ -4,7 +4,7 @@ import "./LeftSide.css";
 // Component
 import HomeReview from "./HomeReview";
 
-function LeftSide() {
+export default function LeftSide() {
   return (
     <div id="leftside">
       <HomeReview />
@@ -14,5 +14,3 @@ function LeftSide() {
     </div>
   );
 }
-
-export default LeftSide;

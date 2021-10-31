@@ -3,11 +3,11 @@ import "./RightSide.css";
 import { Link } from "react-router-dom";
 import CommandedMovie from "./CommandedMovie";
 
-function RightSide() {
+export default function RightSide() {
   return (
     <div id="rightside">
       <Link to={`/user/${"skdisk3895"}`} className="rightside__user">
-        <i class="fas fa-seedling"></i>
+        <i className="fas fa-seedling"></i>
         <span>skdisk3895</span>
       </Link>
       <div className="rightside__recommend">
@@ -33,5 +33,3 @@ function RightSide() {
     </div>
   );
 }
-
-export default RightSide;

@@ -94,6 +94,21 @@
   color: #6d6b6b;
 }
 
+.description__hashtag {
+  padding: 6px 0;
+}
+
+.description__hashtag > a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+.description__rate {
+  padding-bottom: 6px;
+  color: rgb(224, 224, 3);
+}
+
 .home-review__comments {
   padding: 0 20px;
 }

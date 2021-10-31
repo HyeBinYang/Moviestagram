@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, useLocation } from "react-router-dom";
+import { Switch, Route, useLocation, Redirect } from "react-router-dom";
 
 import Home from "../../pages/Home";
 import Login from "../../pages/Login";
@@ -13,13 +13,14 @@ import Review from "../../pages/Review";
 export default function Main() {
   const location = useLocation();
   const background = location.state && location.state.background;
+  // const isAuthorized = sessionStorage.getItem("isAuthorized");
+  const isAuthorized = true;
 
   return (
     <div id="main">
       <Switch location={background || location}>
-        <Route exact path="/" component={Home} />
+        {!isAuthorized ? <Route path="/" component={Login} /> : <Route exact path="/" component={Home} />}
         <Route path="/write" component={Writing} />
-        <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/movies" component={Movies} />
         <Route path="/user/:user_id" component={User} />
