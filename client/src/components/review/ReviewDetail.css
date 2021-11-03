@@ -1,5 +1,7 @@
 #reviewdetail {
   display: flex;
+  width: 80%;
+  margin: 0 auto;
   flex-direction: column;
 }
 
@@ -25,13 +27,18 @@
 }
 
 .movie__poster {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   margin-right: 30px;
+}
+
+.info__title {
+  margin-top: 0;
 }
 
 .performers {
   display: flex;
+  overflow-x: scroll;
 }
 
 .performers__info {
@@ -43,7 +50,9 @@
 
 .performers__info > img {
   width: 150px;
-  height: 150px;
+  height: 200px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .performers__info > p {
@@ -51,5 +60,5 @@
 }
 
 .performers__info > p:nth-child(3) {
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.5);
 }

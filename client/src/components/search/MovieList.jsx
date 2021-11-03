@@ -2,18 +2,12 @@ import React from "react";
 import "./MovieList.css";
 import MoviePoster from "./MoviePoster";
 
-export default function MovieList() {
+export default function MovieList({ movieList }) {
   return (
     <div id="movielist">
-      <MoviePoster />
-      <MoviePoster />
-      <MoviePoster />
-      <MoviePoster />
-      <MoviePoster />
-      <MoviePoster />
-      <MoviePoster />
-      <MoviePoster />
-      <MoviePoster />
+      {movieList.map((movie, index) => {
+        return <MoviePoster movie={movie} key={index} />;
+      })}
     </div>
   );
 }

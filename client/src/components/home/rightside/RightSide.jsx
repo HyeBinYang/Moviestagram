@@ -1,9 +1,11 @@
 import React from "react";
-import "./RightSide.css";
 import { Link } from "react-router-dom";
+import "./RightSide.css";
+
+// Component
 import CommandedMovie from "./CommandedMovie";
 
-export default function RightSide() {
+export default function RightSide({ recommandedMovies }) {
   return (
     <div id="rightside">
       <Link to={`/user/${"skdisk3895"}`} className="rightside__user">
@@ -13,21 +15,13 @@ export default function RightSide() {
       <div className="rightside__recommend">
         <h3>회원님을 위한 추천 영화</h3>
         <div className="recommend__movies">
-          <Link to={`/movie/${2343}/reviews`}>
-            <CommandedMovie />
-          </Link>
-          <Link to={`/movie/${2233}/reviews`}>
-            <CommandedMovie />
-          </Link>
-          <Link to={`/movie/${1343}/reviews`}>
-            <CommandedMovie />
-          </Link>
-          <Link to={`/movie/${343}/reviews`}>
-            <CommandedMovie />
-          </Link>
-          <Link to={`/movie/${43}/reviews`}>
-            <CommandedMovie />
-          </Link>
+          {recommandedMovies.map((movie, index) => {
+            return (
+              <Link to={`/movie/${movie.id}/reviews`} key={index}>
+                <CommandedMovie movie={movie} />
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
-import "./Reviews.css";
 import { Link, useLocation } from "react-router-dom";
+import "./Reviews.css";
 
 import Review from "./Review";
 

@@ -1,7 +1,6 @@
 import React from "react";
-import "./ReviewModal.css";
-
 import { Link, useHistory } from "react-router-dom";
+import "./ReviewModal.css";
 
 export default function ReviewModal() {
   const history = useHistory();
