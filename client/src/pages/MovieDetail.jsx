@@ -20,7 +20,7 @@ export default function MovieDetail() {
     const movieId = location.pathname.split("/")[2];
 
     axios
-      .get(`http://localhost:3000/movie/search/${movieId}/detail`)
+      .get(`/movie/search/${movieId}/detail`)
       .then((res) => {
         console.log(res.data);
         setMovie(res.data);
@@ -29,7 +29,7 @@ export default function MovieDetail() {
       .catch((err) => console.log(err));
 
     axios
-      .get(`http://localhost:3000/movie/${movieId}/cast`)
+      .get(`/movie/${movieId}/cast`)
       .then((res) => {
         setActors(res.data);
         setActorsSpinner(false);

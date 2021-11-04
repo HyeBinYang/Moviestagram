@@ -3,6 +3,8 @@ const querystring = require("querystring");
 const express = require("express");
 const router = express.Router();
 
+const jwt = require("jsonwebtoken");
+
 const { API_KEY, BASE_URL } = require("../config/themovieapi");
 
 router.get("/search", (req, res) => {

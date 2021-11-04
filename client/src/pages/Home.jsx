@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import axios from "axios";
 import "./styles/Home.css";
 
@@ -10,18 +10,26 @@ import Spinner from "../components/common/Spinner";
 
 export default function Home() {
   const location = useLocation();
+  const history = useHistory();
   const [spinner, setSpinner] = useState(true);
   const [recommandedMovies, setRecommandedMovies] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/movie/popular")
+      .get("/auth/token")
       .then((res) => {
-        setRecommandedMovies(res.data.results.slice(0, 5));
-        setSpinner(false);
+        console.log(res);
+
+        axios
+          .get("/movie/popular")
+          .then((res) => {
+            setRecommandedMovies(res.data.results.slice(0, 5));
+            setSpinner(false);
+          })
+          .catch((err) => console.log(err));
       })
-      .catch((err) => console.log(err));
-  }, [location]);
+      .catch((err) => history.push("/login"));
+  }, []);
 
   return (
     <>

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
+import { Cookies } from "react-cookie";
 
 import Home from "../../pages/Home";
 import Login from "../../pages/Login";
@@ -14,12 +15,19 @@ export default function Main() {
   const location = useLocation();
   const background = location.state && location.state.background;
   // const isAuthorized = sessionStorage.getItem("isAuthorized");
-  const isAuthorized = true;
+  // const isAuthorized = true;
+
+  // useEffect(() => {
+  //   const cookies = new Cookies("refreshToken");
+  //   console.log(document.cookie);
+  // }, []);
 
   return (
     <div id="main">
       <Switch location={background || location}>
-        {!isAuthorized ? <Route path="/" component={Login} /> : <Route exact path="/" component={Home} />}
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
+        {/* {!isAuthorized ? <Route path="/" component={Login} /> : <Route exact path="/" component={Home} />} */}
         <Route path="/write" component={Writing} />
         <Route path="/signup" component={Signup} />
         <Route path="/movies" component={Movies} />

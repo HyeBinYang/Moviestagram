@@ -14,7 +14,7 @@ export default function Movies() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/movie/search", { params: { movie: new URLSearchParams(location.search).get("movie") } })
+      .get("/movie/search", { params: { movie: new URLSearchParams(location.search).get("movie") } })
       .then((res) => {
         console.log(res.data);
         setMovieList([...res.data.results]);

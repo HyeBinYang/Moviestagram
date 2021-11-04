@@ -1,18 +1,9 @@
-const jwt = require("jsonwebtoken");
-const key = require("./key");
 const express = require("express");
 const router = express.Router();
+const user = require("../controllers/auth");
 
-router.post("/register", (req, res) => {});
-
-router.post("/login", (req, res) => {
-  try {
-    console.log(req.cookies);
-    const token = jwt.sign({ username: req.body.username }, key);
-    res.json({ token: token });
-  } catch (err) {
-    res.status(500).json({ error: err.toString() });
-  }
-});
+router.post("/register", user.regiser);
+router.post("/login", user.login);
+router.get("/token", user.checkToken);
 
 module.exports = router;

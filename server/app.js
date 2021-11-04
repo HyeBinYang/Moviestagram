@@ -7,9 +7,10 @@ const cors = require("cors");
 // Router
 const authRouter = require("./routes/auth");
 const movieRouter = require("./routes/movie");
+
 const app = express();
 
-const port = 3000;
+const port = 8000;
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -34,8 +35,9 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+  res.status(err.status || 500).json({
+    message: "Error",
+  });
 });
 
 app.listen(port, () => {
