@@ -80,24 +80,31 @@ const controller = {
     const accessToken = req.headers.token;
     const refreshToken = req.cookies.refreshToken;
 
-    if (!accessToken) res.status(401).json({ code: 401, message: "권한이 없습니다." });
+    // if (!accessToken) res.status(401).json({ code: 401, message: "권한이 없습니다." });
 
-    if (accessToken === null) {
-      if (!refreshToken) throw Error("권한이 없습니다.");
-      else {
-        const newAccessToken = jwt.sign({ userId, userName }, "secret", { expiresIn: "1h", issuer: "hyebin" });
-        req.cookies.access = newAccessToken;
-        return res.status(200).json({ accessToken });
+    if (!accessToken || accessToken === "undefined") {
+      if (!refreshToken) {
+        console.log(1);
+        res.status(401).json({ code: 401, message: "권한이 없습니다." });
+      } else {
+        console.log(2);
+        const userId = "weqweqw";
+        const newAccessToken = jwt.sign({ userId }, "secret", { expiresIn: "1h", issuer: "hyebin" });
+        // req.cookies.access = newAccessToken;
+        console.log(newAccessToken);
+        return res.status(200).json({ newAccessToken });
       }
     } else {
       if (!refreshToken) {
+        console.log(3);
         const newRefreshToken = jwt.sign({}, "secret", { expiresIn: "14d", issuer: "cotak" });
-        res.cookie("refreshToken", refreshToken, {
+        res.cookie("refreshToken", newRefreshToken, {
           httpOnly: true,
           maxAge: 1000 * 60 * 60 * 24 * 14,
         });
         return res.status(200).json({ code: 200, message: "요청 성공" });
       } else {
+        console.log(4);
         return res.status(200).json({ code: 200, message: "요청 성공" });
       }
     }

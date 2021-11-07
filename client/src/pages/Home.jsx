@@ -16,19 +16,12 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("/auth/token")
+      .get("/movie/popular")
       .then((res) => {
-        console.log(res);
-
-        axios
-          .get("/movie/popular")
-          .then((res) => {
-            setRecommandedMovies(res.data.results.slice(0, 5));
-            setSpinner(false);
-          })
-          .catch((err) => console.log(err));
+        setRecommandedMovies(res.data.results.slice(0, 5));
+        setSpinner(false);
       })
-      .catch((err) => history.push("/login"));
+      .catch((err) => console.log(err));
   }, []);
 
   return (
