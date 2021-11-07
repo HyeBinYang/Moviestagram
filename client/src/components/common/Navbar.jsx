@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useHistory, useLocation, Redirect } from "react-router-dom";
 import "./Navbar.css";
+import axios from "axios";
+import { clearUser } from "../../modules/auth";
+import { useDispatch } from "react-redux";
 
 export default function Navbar() {
   const history = useHistory();
   const location = useLocation();
+  const userId = useSelector((state) => state.auth.userId);
+  const dispatch = useDispatch();
   const [movieInput, setMovieInput] = useState("");
 
   const searchMovie = (e) => {
@@ -14,6 +20,13 @@ export default function Navbar() {
         search: `?movie=${movieInput}`,
       });
     }
+  };
+
+  const logout = () => {
+    axios
+      .post("/auth/logout")
+      .then(() => dispatch(clearUser()))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -29,18 +42,13 @@ export default function Navbar() {
           </Link>
         </li>
         <li className="menu">
-          <Link
-            to={{
-              pathname: "/write",
-              state: { background: location },
-            }}
-          >
-            <i className="fas fa-pen"></i>
-          </Link>
-        </li>
-        <li className="menu">
           <i className="far fa-heart"></i>
         </li>
+        {userId ? (
+          <li className="menu" onClick={logout}>
+            <i className="fas fa-sign-out-alt"></i>
+          </li>
+        ) : null}
       </ul>
     </nav>
   );

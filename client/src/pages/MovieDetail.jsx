@@ -22,7 +22,6 @@ export default function MovieDetail() {
     axios
       .get(`/movie/search/${movieId}/detail`)
       .then((res) => {
-        console.log(res.data);
         setMovie(res.data);
         setMovieSpinner(false);
       })

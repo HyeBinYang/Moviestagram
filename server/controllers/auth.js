@@ -41,7 +41,7 @@ const controller = {
     // 아이디가 존재하는지 DB에서 찾기
     const query = "SELECT * FROM user WHERE username=?";
 
-    await connection.query(query, [userId], (err, rows, fields) => {
+    await connection.query(query, [userId], (err, rows) => {
       if (err) console.log(err);
       else {
         if (!rows.length) {
@@ -55,7 +55,7 @@ const controller = {
           if (err || hashedPassword !== originPassword) return next(err);
 
           // 토큰 발급 (rt + at)
-          const refreshToken = jwt.sign({}, "secret", {
+          const refreshToken = jwt.sign({ userId }, "secret", {
             expiresIn: "14d",
             issuer: "hyebin",
           });
@@ -67,39 +67,45 @@ const controller = {
 
           res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
+            secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 14,
           });
-          return res.status(200).json({ accessToken });
+          return res.status(200).json({ accessToken, userId });
         });
       }
     });
   },
 
+  async logout(req, res, next) {
+    res.clearCookie("refreshToken");
+    return res.status(200).json({ message: "Logout" });
+  },
+
   checkToken(req, res, next) {
-    console.log(req.headers);
     const accessToken = req.headers.token;
     const refreshToken = req.cookies.refreshToken;
 
-    // if (!accessToken) res.status(401).json({ code: 401, message: "권한이 없습니다." });
-
+    // Accesstoken 이 없을 때
     if (!accessToken || accessToken === "undefined") {
+      // Refreshtoken 도 없으면 401 에러로 응답하기
       if (!refreshToken) {
         console.log(1);
         res.status(401).json({ code: 401, message: "권한이 없습니다." });
       } else {
-        console.log(2);
-        const userId = "weqweqw";
+        // Refreshtoken 이 있으면 accesstoken 재발급
+        const payload = refreshToken.split(".")[1];
+        const userId = JSON.parse(Buffer.from(payload, "base64").toString()).userId;
         const newAccessToken = jwt.sign({ userId }, "secret", { expiresIn: "1h", issuer: "hyebin" });
         // req.cookies.access = newAccessToken;
-        console.log(newAccessToken);
-        return res.status(200).json({ newAccessToken });
+        return res.status(200).json({ newAccessToken, userId });
       }
     } else {
       if (!refreshToken) {
         console.log(3);
-        const newRefreshToken = jwt.sign({}, "secret", { expiresIn: "14d", issuer: "cotak" });
+        const newRefreshToken = jwt.sign({ userId }, "secret", { expiresIn: "14d", issuer: "cotak" });
         res.cookie("refreshToken", newRefreshToken, {
           httpOnly: true,
+          secure: true,
           maxAge: 1000 * 60 * 60 * 24 * 14,
         });
         return res.status(200).json({ code: 200, message: "요청 성공" });

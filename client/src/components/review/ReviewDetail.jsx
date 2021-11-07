@@ -1,7 +1,10 @@
 import React from "react";
 import "./ReviewDetail.css";
+import { Link, useLocation } from "react-router-dom";
 
 export default function ReviewDetail({ movie, actors }) {
+  const location = useLocation();
+
   return (
     <div id="reviewdetail">
       <div className="reviewdetail__movie">
@@ -51,6 +54,15 @@ export default function ReviewDetail({ movie, actors }) {
             </div>
           </dl>
           <div className="info__story">{movie.overview}</div>
+          <Link
+            to={{
+              pathname: "/write",
+              state: { background: location, movieTitle: movie.title },
+            }}
+            className="info__review"
+          >
+            리뷰쓰기
+          </Link>
         </div>
       </div>
       <div className="reviewdetail__performer">

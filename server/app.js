@@ -7,11 +7,13 @@ const cors = require("cors");
 // Router
 const authRouter = require("./routes/auth");
 const movieRouter = require("./routes/movie");
+const reviewRouter = require("./routes/review");
 
 const app = express();
 
 const port = 8000;
 
+// Middleware
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -22,6 +24,7 @@ app.use(cors());
 
 app.use("/auth", authRouter);
 app.use("/movie", movieRouter);
+app.use("/review", reviewRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

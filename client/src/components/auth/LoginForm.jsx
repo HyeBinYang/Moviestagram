@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./LoginForm.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../modules/auth";
 
 export default function LoginForm() {
-  const history = useHistory();
+  const dispatch = useDispatch();
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
-  const [formData, setFormData] = useState({});
 
   const handleUserId = (e) => setUserId(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -21,17 +22,16 @@ export default function LoginForm() {
 
   const onSilentRefresh = () => {
     axios
-      .post("/auth/token", formData)
+      .post("/auth/token")
       .then(onLoginSuccess)
       .catch((err) => console.log(err));
   };
 
   const onLoginSuccess = (response) => {
-    setFormData({ userId, password });
+    dispatch(setUser(response));
     const { accessToken } = response.data;
     // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
     axios.defaults.headers.common["token"] = accessToken;
-
     setTimeout(onSilentRefresh, 1000 * 60 * 60 * 24);
   };
 

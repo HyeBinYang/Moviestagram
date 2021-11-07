@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./WritingModal.css";
 
-export default function WritingModal() {
+export default function WritingModal({ movieTitle }) {
   const [hashtag, setHashtag] = useState("");
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState(null);

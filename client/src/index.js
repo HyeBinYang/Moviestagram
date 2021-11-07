@@ -30,7 +30,9 @@ ReactDOM.render(
   <React.StrictMode>
     <CookiesProvider>
       <Router>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </Router>
     </CookiesProvider>
   </React.StrictMode>,
