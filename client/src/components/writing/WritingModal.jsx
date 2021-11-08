@@ -11,7 +11,6 @@ export default function WritingModal({ movieTitle }) {
 
   const previewImage = (e) => {
     const reader = new FileReader();
-    console.log(e.target.files[0]);
 
     reader.onload = () => {
       setPhoto({

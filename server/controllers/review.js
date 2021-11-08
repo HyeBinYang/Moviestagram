@@ -104,15 +104,60 @@ module.exports = {
       next(err);
     }
   },
-  async updateReview() {
-    //
+  async updateReview(req, res, next) {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "1234",
+      database: "moviestagram",
+      dateStrings: "date",
+    });
+
+    connection.beginTransaction();
+
+    try {
+      const { userName, description, hashtags, movieTitle } = req.body;
+      // 1. hashtag 수정
+      // 1-1. 기존 review에 있던 hashtag를 전부 삭제한다. (post_hashtag 에서)
+      // 1-2. 새로 들어온 hashtag를 넣는다.
+      // 1-3. hashtag 중 새로운 hashtag면 hashtag 테이블에 넣는다.
+
+      // 2. description 수정
+      // update 시키면 끝
+
+      res.status(200).json({ message: "Complete update" });
+      connection.commit();
+    } catch (err) {
+      connection.rollback();
+      next(err);
+    }
   },
-  async deleteReview() {
+  async deleteReview(req, res, next) {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "1234",
+      database: "moviestagram",
+      dateStrings: "date",
+    });
+
+    connection.beginTransaction();
+
     try {
       const { postId } = req.body;
-      await connection.query("DELETE FROM post WHERE post_id=?", [postId]);
+      // post_hashtag 에 있는 데이터를 전부 삭제
+      await connection.query("DELETE FROM post_hashtag WHERE post_id=?", [postId]);
+
+      // comment (댓글) 에 있는 데이터를 전부 삭제
+      await connection.query("DELETE FROM comment WHERE post_id=?", [postId]);
+
+      // post 에 있는 데이터를 삭제
+      await connection.query("DELETE FROM post WHERE id=?", [postId]);
+
       res.status(200).json({ message: "Complete delete" });
+      connection.commit();
     } catch (err) {
+      connection.rollback();
       next(err);
     }
   },
