@@ -4,6 +4,7 @@
 
 # Common
 config/
+uploadedFiles/
 
 ### Node ###
 # Logs

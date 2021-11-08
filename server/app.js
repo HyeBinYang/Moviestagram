@@ -4,6 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+const fs = require("fs");
 // Router
 const authRouter = require("./routes/auth");
 const movieRouter = require("./routes/movie");
@@ -44,6 +45,8 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(port, () => {
+  const dir = "../client/public/img/uploadedFiles";
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir); // 2
   console.log(`Run port ${port}`);
 });
 

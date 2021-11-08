@@ -1,13 +1,17 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import "./WritingModal.css";
 
 export default function WritingModal({ movieTitle }) {
   const [hashtag, setHashtag] = useState("");
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState(null);
+  const userName = useSelector((state) => state.auth.userId);
 
   const previewImage = (e) => {
     const reader = new FileReader();
+    console.log(e.target.files[0]);
 
     reader.onload = () => {
       setPhoto({
@@ -42,13 +46,18 @@ export default function WritingModal({ movieTitle }) {
 
   const submit = () => {
     const hashtags = hashtag.split(" ").filter((hashtag) => hashtag);
-    const formData = {
-      hashtags: hashtags,
-      description: description,
-      photo: photo,
-    };
+    const formData = new FormData();
+    formData.append("userName", userName);
+    formData.append("description", description);
+    formData.append("photo", photo.file);
+    formData.append("hashtags", hashtags);
+    formData.append("movieTitle", movieTitle);
 
-    console.log(formData);
+    axios.post("/review/write", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   };
 
   return (

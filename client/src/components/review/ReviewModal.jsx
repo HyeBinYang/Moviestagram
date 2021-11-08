@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./ReviewModal.css";
+import axios from "axios";
 
 export default function ReviewModal() {
-  const history = useHistory();
+  const [photo, setPhoto] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("/review/post/1")
+      .then((res) => {
+        setPhoto(JSON.parse(res.data.image));
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const goBack = () => {
     history.goBack();
@@ -11,7 +21,7 @@ export default function ReviewModal() {
 
   return (
     <div id="reviewmodal">
-      <img src="https://picsum.photos/200/300" alt="review image" className="reviewmodal__image" />
+      <img src={`${process.env.PUBLIC_URL}/img/uploadedFiles/${photo.filename}`} alt={photo.path} className="reviewmodal__image" />
       <div className="reivewmodal__info">
         <div className="info__username">
           <div className="username">
