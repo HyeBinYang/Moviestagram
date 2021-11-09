@@ -9,6 +9,7 @@ const fs = require("fs");
 const authRouter = require("./routes/auth");
 const movieRouter = require("./routes/movie");
 const reviewRouter = require("./routes/review");
+const commentRouter = require("./routes/comment");
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(cors());
 app.use("/auth", authRouter);
 app.use("/movie", movieRouter);
 app.use("/review", reviewRouter);
+app.use("/comment", commentRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -46,7 +48,7 @@ app.use(function (err, req, res, next) {
 
 app.listen(port, () => {
   const dir = "../client/public/img/uploadedFiles";
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir); // 2
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir);
   console.log(`Run port ${port}`);
 });
 

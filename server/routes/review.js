@@ -29,5 +29,7 @@ router.post("/write", upload.single("photo"), review.writeReview);
 router.put("/update", review.updateReview);
 // 리뷰 삭제
 router.delete("/delete", review.deleteReview);
+// 리뷰 좋아요
+router.post("/:postId/like", review.likeToggleReview);
 
 module.exports = router;
