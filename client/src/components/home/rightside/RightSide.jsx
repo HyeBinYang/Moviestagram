@@ -7,13 +7,13 @@ import CommandedMovie from "./CommandedMovie";
 import { useSelector } from "react-redux";
 
 export default function RightSide({ recommandedMovies }) {
-  const userId = useSelector((state) => state.auth.userId);
+  const userName = useSelector((state) => state.auth.userId);
 
   return (
     <div id="rightside">
-      <Link to={`/user/${userId}`} className="rightside__user">
+      <Link to={`/user/${userName}`} className="rightside__user">
         <i className="fas fa-seedling"></i>
-        <span>{userId}</span>
+        <span>{userName}</span>
       </Link>
       <div className="rightside__recommend">
         <h3>회원님을 위한 추천 영화</h3>

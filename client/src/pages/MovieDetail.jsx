@@ -13,36 +13,33 @@ export default function MovieDetail() {
   const location = useLocation();
   const [movie, setMovie] = useState({});
   const [actors, setActors] = useState({});
+  const [movieReviews, setMovieReviews] = useState([]);
   const [movieSpinner, setMovieSpinner] = useState(true);
-  const [actorsSpinner, setActorsSpinner] = useState(true);
 
   useEffect(() => {
     const movieId = location.pathname.split("/")[2];
 
-    axios
-      .get(`/movie/search/${movieId}/detail`)
-      .then((res) => {
-        setMovie(res.data);
-        setMovieSpinner(false);
-      })
-      .catch((err) => console.log(err));
+    const getMovieDetail = async (movieId) => {
+      const movieDetailResponse = await axios.get(`/movie/search/${movieId}/detail`);
+      setMovie(movieDetailResponse.data);
+      const movieCastResponse = await axios.get(`/movie/${movieId}/cast`);
+      setActors(movieCastResponse.data);
+      const movieReviewsResponse = await axios.get(`/review/movie/${movieId}`);
+      setMovieReviews(movieReviewsResponse.data);
 
-    axios
-      .get(`/movie/${movieId}/cast`)
-      .then((res) => {
-        setActors(res.data);
-        setActorsSpinner(false);
-      })
-      .catch((err) => console.log(err));
+      setMovieSpinner(false);
+    };
+
+    getMovieDetail(movieId);
   }, [location]);
 
   return (
     <>
-      {!movieSpinner && !actorsSpinner ? (
+      {!movieSpinner ? (
         movie ? (
           <div id="moviedetail">
-            <ReviewDetail movie={movie} actors={actors.cast} />
-            <Reviews />
+            <ReviewDetail movie={movie} actors={actors.cast} movieReviews={movieReviews} />
+            <Reviews movieReviews={movieReviews} />
           </div>
         ) : (
           <MovieNotFound />

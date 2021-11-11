@@ -18,7 +18,7 @@ const upload = multer({ storage: storage });
 // 특정영화의 모든 리뷰를 가지고오기
 router.get("/movie/:movieId", review.getMovieReviews);
 // 특정유저의 모든 리뷰를 가지고 오기
-router.get("/user/:userId", review.getUserReviews);
+router.get("/user/:userName", review.getUserReviews);
 // 홈 화면에서 최신 리뷰 가지고 오기
 router.get("/new", review.getNewReviews);
 // 특정 리뷰 가지고 오기

@@ -87,9 +87,14 @@ module.exports = {
     });
 
     try {
-      const { userId } = req.params;
+      const { userName } = req.params;
+      console.log(userName);
 
       connection.beginTransaction();
+
+      // userName 값으로 DB에서 유저 찾기
+      const [user] = await connection.query("SELECT id FROM user WHERE username=?", [userName]);
+      const userId = user[0].id;
 
       const [posts] = await connection.query(
         `SELECT 

@@ -67,9 +67,10 @@ export default function HomeReview({ review }) {
     }
   };
 
-  const getCreated = () => {
+  const getCreated = (created) => {
     const now = new Date();
-    const createdDate = new Date(review.created);
+    const createdDate = new Date(created);
+    console.log(created);
 
     const secDiff = (now.getTime() - createdDate.getTime()) / 1000;
     const minDiff = secDiff / 60;
@@ -107,7 +108,7 @@ export default function HomeReview({ review }) {
 
   return (
     <div id="home-review">
-      <Link to={`/user/${review.user_id}`} className="home-review__user">
+      <Link to={`/user/${review.username}`} className="home-review__user">
         <i className="fas fa-seedling"></i>
         <span>{review.username}</span>
       </Link>
@@ -121,7 +122,9 @@ export default function HomeReview({ review }) {
         <b>{postLikeCount}명</b>이 좋아합니다.
       </div>
       <div className="home-review__description">
-        <p className="description__username">{review.user_id}</p>
+        <Link to={`/user/${review.username}`} className="description__username">
+          {review.username}
+        </Link>
         {review.description.length > 100 ? (
           reviewHeightToggle ? (
             <>
@@ -141,7 +144,7 @@ export default function HomeReview({ review }) {
         ) : (
           <p className="description__content-briefly">{review.description}</p>
         )}
-        <p className="description__created">{getCreated()}</p>
+        <p className="description__created">{getCreated(review.created)}</p>
         <div className="description__hashtag">
           <Link to={`/movie/${review.movie_id}/reviews`}>#{`${review.movie_name}`} </Link>
           {review.hashtags.map((hashtag) => (
@@ -171,7 +174,7 @@ export default function HomeReview({ review }) {
           </Link>
         ) : null}
         {comments.map((comment, index) => (
-          <Comment reviewId={review.id} comments={comments} comment={comment} setComments={setComments} key={index} />
+          <Comment reviewId={review.id} comments={comments} comment={comment} setComments={setComments} getCreated={getCreated} key={index} />
         ))}
       </div>
       <div className="home-review__write">

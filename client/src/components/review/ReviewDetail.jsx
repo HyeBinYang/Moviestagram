@@ -2,8 +2,9 @@ import React from "react";
 import "./ReviewDetail.css";
 import { Link, useLocation } from "react-router-dom";
 
-export default function ReviewDetail({ movie, actors }) {
+export default function ReviewDetail({ movie, actors, movieReviews }) {
   const location = useLocation();
+  console.log(movie);
 
   return (
     <div id="reviewdetail">
@@ -46,10 +47,10 @@ export default function ReviewDetail({ movie, actors }) {
             </div>
             <div className="info__group">
               <dt>
-                <span>투표수</span>
+                <span>리뷰수</span>
               </dt>
               <dd>
-                <span>0 명</span>
+                <span>{movieReviews.length} 명</span>
               </dd>
             </div>
           </dl>

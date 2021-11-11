@@ -1,17 +1,12 @@
 import React from "react";
 import "./UserReviews.css";
 
-export default function UserReviews() {
+export default function UserReviews({ userReviews }) {
   return (
     <div id="userreviews">
-      <img src="https://picsum.photos/200" alt="user's review" className="userreviews__review" />
-      <img src="https://picsum.photos/200" alt="user's review" className="userreviews__review" />
-      <img src="https://picsum.photos/200" alt="user's review" className="userreviews__review" />
-      <img src="https://picsum.photos/200" alt="user's review" className="userreviews__review" />
-      <img src="https://picsum.photos/200" alt="user's review" className="userreviews__review" />
-      <img src="https://picsum.photos/200" alt="user's review" className="userreviews__review" />
-      <img src="https://picsum.photos/200" alt="user's review" className="userreviews__review" />
-      <img src="https://picsum.photos/200" alt="user's review" className="userreviews__review" />
+      {userReviews.map((userReview) => (
+        <img src={`${process.env.PUBLIC_URL}/img/uploadedFiles/${userReview.image}`} alt="user's review" className="userreviews__review" />
+      ))}
     </div>
   );
 }

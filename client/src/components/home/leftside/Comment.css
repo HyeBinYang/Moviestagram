@@ -17,10 +17,14 @@
   text-decoration: none;
 }
 
-.comment__likecount {
+.comment__info {
   font-size: 12px;
   margin-top: 10px;
   color: #adabab;
+}
+
+.comment__info > span {
+  margin-right: 10px;
 }
 
 .comment__icon {

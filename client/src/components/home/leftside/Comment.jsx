@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function Comment({ reviewId, comments, comment, setComments }) {
+export default function Comment({ reviewId, comments, comment, setComments, getCreated }) {
   const userName = useSelector((state) => state.auth.userId);
   const [commentLikeToggle, setCommentLikeToggle] = useState(false);
   const [commentLikeCount, setCommentLikeCount] = useState(0);
@@ -42,8 +42,11 @@ export default function Comment({ reviewId, comments, comment, setComments }) {
           <b>{comment.username}</b>
         </Link>
         {comment.content}
-        <div className="comment__likecount">
-          좋아요 <b>{commentLikeCount}</b>개
+        <div className="comment__info">
+          <span>{getCreated(comment.created)}</span>
+          <span>
+            좋아요 <b>{commentLikeCount}</b>개
+          </span>
         </div>
       </div>
       <div className="comment__icon">
