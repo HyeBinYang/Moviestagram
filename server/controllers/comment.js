@@ -39,11 +39,15 @@ module.exports = {
 
       connection.beginTransaction();
 
+      // userName 값으로 DB에서 유저 찾기
+      const [user] = await connection.query("SELECT id FROM user WHERE username=?", [userName]);
+      const userId = user[0].id;
+
       // DB에 댓글 등록
       await connection.query("INSERT INTO comment (content, post_id, user_id, created, updated) VALUES (?, ?, ?, ?, ?)", [
         content,
         postId,
-        userName,
+        userId,
         moment().format("YYYY-MM-DD HH:mm:ss"),
         moment().format("YYYY-MM-DD HH:mm:ss"),
       ]);
@@ -52,6 +56,7 @@ module.exports = {
       connection.commit();
     } catch (err) {
       connection.rollback();
+      console.log(err);
       next(err);
     }
   },

@@ -56,7 +56,7 @@ module.exports = {
           const commentId = comments[i].id;
           const [commentLikeUsers] = await connection.query(
             `SELECT
-            user.id, user.name
+            user.id, user.username
             FROM user, comment_like_user
             WHERE comment_like_user.comment_id = ? AND comment_like_user.user_id = user.id`,
             [commentId]
@@ -131,7 +131,7 @@ module.exports = {
           const commentId = comments[i].id;
           const [commentLikeUsers] = await connection.query(
             `SELECT
-            user.id, user.name
+            user.id, user.username
             FROM user, comment_like_user
             WHERE comment_like_user.comment_id = ? AND comment_like_user.user_id = user.id`,
             [commentId]
@@ -202,7 +202,7 @@ module.exports = {
           const commentId = comments[i].id;
           const [commentLikeUsers] = await connection.query(
             `SELECT
-            user.id, user.name
+            user.id, user.username
             FROM user, comment_like_user
             WHERE comment_like_user.comment_id = ? AND comment_like_user.user_id = user.id`,
             [commentId]
@@ -257,7 +257,7 @@ module.exports = {
         const commentId = comments[i].id;
         const [commentLikeUsers] = await connection.query(
           `SELECT
-          user.id, user.name
+          user.id, user.username
           FROM user, comment_like_user
           WHERE comment_like_user.comment_id = ? AND comment_like_user.user_id = user.id`,
           [commentId]
@@ -482,6 +482,7 @@ module.exports = {
       connection.commit();
     } catch (err) {
       connection.rollback();
+      console.log(err);
       next(err);
     }
   },

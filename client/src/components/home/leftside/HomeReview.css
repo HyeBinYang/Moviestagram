@@ -94,6 +94,13 @@
   color: #6d6b6b;
 }
 
+.description__created {
+  color: #adabab;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 0;
+}
+
 .description__hashtag {
   padding: 6px 0;
 }

@@ -13,28 +13,17 @@ import rootReducer from "./modules/index";
 
 axios.defaults.withCredentials = true;
 
-// axios.interceptors.request.use(
-//   (config) => {
-//     config.headers.common["token"] =
-//       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ3ZXF3ZXF3IiwiaWF0IjoxNjM2MDMxOTU1LCJleHAiOjE2MzYwMzU1NTUsImlzcyI6Imh5ZWJpbiJ9.PNWbe4OhwybFEbqYHQDGIUqVPIk6l3tM-OObS2lq4gY";
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
 const store = createStore(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>
-    <CookiesProvider>
-      <Router>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </Router>
-    </CookiesProvider>
+    {/* <CookiesProvider> */}
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>
+    {/* </CookiesProvider> */}
   </React.StrictMode>,
   document.getElementById("root")
 );

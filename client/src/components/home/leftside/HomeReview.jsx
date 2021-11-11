@@ -1,28 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./HomeReview.css";
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
 
 import Comment from "./Comment";
+import { useSelector } from "react-redux";
 
 export default function HomeReview({ review }) {
   // State
   const location = useLocation();
-  const [comments, setComments] = useState([
-    {
-      id: 1,
-      body: "@skdisk3895 답글 111 @skdisk7236",
-      username: "hye_bin7368",
-    },
-    {
-      id: 2,
-      body: "답글 21313111",
-      username: "yhb2kr",
-    },
-  ]);
+  const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState();
   const [reviewHeightToggle, setReviewHeightToggle] = useState(false);
+  const [likeToggle, setLikeToggle] = useState(false);
+  const [postLikeCount, setPostLikeCount] = useState(0);
+
+  const userName = useSelector((state) => state.auth.userId);
+
+  useEffect(() => {
+    if (review.postLikeUsers.filter((user) => user.username === userName).length) setLikeToggle(true);
+    setPostLikeCount(review.postLikeUsers.length);
+    setComments([...review.comments]);
+  }, []);
 
   // --------------Function ------------------
+  // 좋아요
+  const onHandleLike = () => {
+    axios
+      .post(`/review/like/${review.id}`, { userName })
+      .then(() => {
+        likeToggle ? setPostLikeCount(postLikeCount - 1) : setPostLikeCount(postLikeCount + 1);
+        setLikeToggle(!likeToggle);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const resizeTextareaHeight = (e) => {
     e.target.style.height = "40px";
     e.target.style.height = `${e.target.scrollHeight}px`;
@@ -41,63 +53,113 @@ export default function HomeReview({ review }) {
 
   // 댓글 등록
   const submitComment = () => {
-    const newComments = [...comments];
-    const username = "apple_good";
+    if (commentText.length > 0) {
+      axios
+        .post(`/comment/${review.id}/write`, {
+          content: commentText,
+          userName,
+        })
+        .then(() => {
+          setComments([...comments, { username: userName, content: commentText, commentLikeUsers: [] }]);
+          setCommentText("");
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
-    newComments.unshift({
-      body: commentText,
-      username: username,
-    });
-    setComments(newComments);
-    setCommentText("");
+  const getCreated = () => {
+    const now = new Date();
+    const createdDate = new Date(review.created);
+
+    const secDiff = (now.getTime() - createdDate.getTime()) / 1000;
+    const minDiff = secDiff / 60;
+    const hourDiff = minDiff / 60;
+    const dayDiff = hourDiff / 24;
+    const monthDiff = dayDiff / 30;
+    const yearDiff = monthDiff / 12;
+
+    if (yearDiff >= 1) {
+      return `${parseInt(yearDiff)}년 전`;
+    } else if (monthDiff >= 1) {
+      return `${parseInt(monthDiff)}달 전`;
+    } else if (dayDiff >= 1) {
+      if (dayDiff > 28) {
+        return "4주 전";
+      } else if (dayDiff > 21) {
+        return "3주 전";
+      } else if (dayDiff > 14) {
+        return "2주 전";
+      } else if (dayDiff > 7) {
+        return "1주 전";
+      } else if (parseInt(dayDiff) === 1) {
+        return `하루 전`;
+      } else {
+        return `${parseInt(dayDiff)}일 전`;
+      }
+    } else if (hourDiff >= 1) {
+      return `${parseInt(hourDiff)}시간 전`;
+    } else if (minDiff >= 1) {
+      return `${parseInt(minDiff)}분 전`;
+    } else {
+      return "몇초 전";
+    }
   };
 
   return (
     <div id="home-review">
-      <Link to={`/user/${"skdisk3895"}`} className="home-review__user">
+      <Link to={`/user/${review.user_id}`} className="home-review__user">
         <i className="fas fa-seedling"></i>
-        <span>{review.user_id}</span>
+        <span>{review.username}</span>
       </Link>
       <div className="home-review__photo">
         <img src={`${process.env.PUBLIC_URL}/img/uploadedFiles/${review.image}`} alt="User's photo" />
       </div>
       <div className="home-review__icon">
-        <i className="far fa-heart"></i>
-        <i className="far fa-comment"></i>
+        {likeToggle ? <i onClick={onHandleLike} class="fas fa-heart" style={{ color: "red" }}></i> : <i onClick={onHandleLike} className="far fa-heart"></i>}
       </div>
       <div className="home-review__likecount">
-        <b>0명</b>이 좋아합니다.
+        <b>{postLikeCount}명</b>이 좋아합니다.
       </div>
       <div className="home-review__description">
         <p className="description__username">{review.user_id}</p>
-        {reviewHeightToggle ? (
-          <>
-            <p className="description__content-full">{review.description}</p>
-            <button onClick={adjustReviewHeight} className="description__briefly">
-              간략히
-            </button>
-          </>
+        {review.description.length > 100 ? (
+          reviewHeightToggle ? (
+            <>
+              <p className="description__content-full">{review.description}</p>
+              <button onClick={adjustReviewHeight} className="description__briefly">
+                간략히
+              </button>
+            </>
+          ) : (
+            <>
+              <p className="description__content-briefly">{review.description}</p>
+              <button onClick={adjustReviewHeight} className="description__more">
+                더 보기
+              </button>
+            </>
+          )
         ) : (
-          <>
-            <p className="description__content-briefly">{review.description}</p>
-            <button onClick={adjustReviewHeight} className="description__more">
-              더 보기
-            </button>
-          </>
+          <p className="description__content-briefly">{review.description}</p>
         )}
+        <p className="description__created">{getCreated()}</p>
         <div className="description__hashtag">
-          <Link to={`/movie/${review.movie}/reviews`}>{`#${review.movie}`}</Link>
+          <Link to={`/movie/${review.movie_id}/reviews`}>#{`${review.movie_name}`} </Link>
+          {review.hashtags.map((hashtag) => (
+            <Link to={`/movie/${review.movieId}/reviews`} key={hashtag.id}>
+              {`${hashtag.name}`}{" "}
+            </Link>
+          ))}
         </div>
         <div className="description__rate">
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star"></i>
+          {review.rate > 0.5 ? <i className="fas fa-star"></i> : <i className="fas fa-star-half"></i>}
+          {review.rate > 1.5 ? <i className="fas fa-star"></i> : <i className="fas fa-star-half"></i>}
+          {review.rate > 2.5 ? <i className="fas fa-star"></i> : <i className="fas fa-star-half"></i>}
+          {review.rate > 3.5 ? <i className="fas fa-star"></i> : <i className="fas fa-star-half"></i>}
+          {review.rate > 4.5 ? <i className="fas fa-star"></i> : <i className="fas fa-star-half"></i>}
         </div>
       </div>
       <div className="home-review__comments">
-        {comments.length > 0 ? (
+        {review.comments.length > 5 ? (
           <Link
             to={{
               pathname: `/review/${123}`,
@@ -105,12 +167,12 @@ export default function HomeReview({ review }) {
             }}
             className="comments__all"
           >
-            댓글 {comments.length}개 모두 보기
+            댓글 {review.comments.length}개 모두 보기
           </Link>
         ) : null}
-        {comments.map((comment, index) => {
-          return <Comment comment={comment} key={index} />;
-        })}
+        {comments.map((comment, index) => (
+          <Comment reviewId={review.id} comments={comments} comment={comment} setComments={setComments} key={index} />
+        ))}
       </div>
       <div className="home-review__write">
         <textarea type="text" placeholder="댓글 달기" onChange={writeComment} value={commentText} />

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
 import axios from "axios";
 import "./styles/Home.css";
 
@@ -9,8 +8,6 @@ import RightSide from "../components/home/rightside/RightSide";
 import Spinner from "../components/common/Spinner";
 
 export default function Home() {
-  const location = useLocation();
-  const history = useHistory();
   const [spinner, setSpinner] = useState(true);
   const [recommandedMovies, setRecommandedMovies] = useState([]);
   const [newReviews, setNewReviews] = useState([]);

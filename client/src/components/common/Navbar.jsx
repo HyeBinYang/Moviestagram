@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useHistory, useLocation, Redirect } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import axios from "axios";
 import { clearUser } from "../../modules/auth";

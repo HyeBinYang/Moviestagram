@@ -17,9 +17,19 @@
   text-decoration: none;
 }
 
-.comment__like {
+.comment__likecount {
+  font-size: 12px;
+  margin-top: 10px;
+  color: #adabab;
+}
+
+.comment__icon {
   align-self: center;
   position: absolute;
   right: 10px;
   cursor: pointer;
+}
+.comment__icon > i {
+  margin-left: 10px;
+  color: #535353;
 }

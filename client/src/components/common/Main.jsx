@@ -19,7 +19,7 @@ export default function Main() {
   return (
     <div id="main">
       <Switch location={background || location}>
-        {!userId ? <Route path="/" component={Login} /> : <Route exact path="/" component={Home} />}
+        {!userId ? <Route exact path="/" component={Login} /> : <Route exact path="/" component={Home} />}
         <Route path="/write" component={Writing} />
         <Route path="/signup" component={Signup} />
         <Route path="/movies" component={Movies} />

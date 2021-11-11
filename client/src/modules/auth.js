@@ -15,8 +15,6 @@ function auth(state = initialState, action) {
       const userId = action.payload.userId;
       const accessToken = action.payload.accessToken;
 
-      console.log(userId, accessToken);
-
       return {
         userId,
         accessToken,
