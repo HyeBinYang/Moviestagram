@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "./WritingModal.css";
 
-export default function WritingModal({ movieTitle }) {
+export default function WritingModal({ movieId }) {
   const [hashtag, setHashtag] = useState("");
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState(null);
@@ -50,7 +50,7 @@ export default function WritingModal({ movieTitle }) {
     formData.append("description", description);
     formData.append("photo", photo.file);
     formData.append("hashtags", hashtags);
-    formData.append("movieTitle", movieTitle);
+    formData.append("movieId", movieId);
 
     axios.post("/review/write", formData, {
       headers: {

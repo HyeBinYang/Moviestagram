@@ -5,7 +5,7 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, "uploadedFiles/");
+    cb(null, "C:/Users/skdis/OneDrive/Desktop/Github/movie-review-app/client/public/img/uploadedFiles");
   },
   filename(req, file, cb) {
     cb(null, `${Date.now()}__${file.originalname}`);
@@ -22,14 +22,15 @@ router.get("/user/:userId", review.getUserReviews);
 // 홈 화면에서 최신 리뷰 가지고 오기
 router.get("/new", review.getNewReviews);
 // 특정 리뷰 가지고 오기
-router.get("/post/:postId", review.getReview);
+router.get("/:postId", review.getReview);
 // 리뷰 작성
+// upload.single("photo"),
 router.post("/write", upload.single("photo"), review.writeReview);
 // 리뷰 수정
-router.put("/update", review.updateReview);
+router.put("/update/:postId", review.updateReview);
 // 리뷰 삭제
-router.delete("/delete", review.deleteReview);
+router.delete("/delete/:postId", review.deleteReview);
 // 리뷰 좋아요
-router.post("/:postId/like", review.likeToggleReview);
+router.post("/like/:postId", review.likeToggleReview);
 
 module.exports = router;

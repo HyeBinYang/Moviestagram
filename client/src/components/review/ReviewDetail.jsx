@@ -57,7 +57,7 @@ export default function ReviewDetail({ movie, actors }) {
           <Link
             to={{
               pathname: "/write",
-              state: { background: location, movieTitle: movie.title },
+              state: { background: location, movieId: movie.id },
             }}
             className="info__review"
           >

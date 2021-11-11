@@ -4,13 +4,12 @@ import "./LeftSide.css";
 // Component
 import HomeReview from "./HomeReview";
 
-export default function LeftSide() {
+export default function LeftSide({ newReviews }) {
   return (
     <div id="leftside">
-      <HomeReview />
-      <HomeReview />
-      <HomeReview />
-      <HomeReview />
+      {newReviews.map((review) => {
+        return <HomeReview review={review} key={review.id} />;
+      })}
     </div>
   );
 }

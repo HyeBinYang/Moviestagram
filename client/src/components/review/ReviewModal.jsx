@@ -4,6 +4,7 @@ import "./ReviewModal.css";
 import axios from "axios";
 
 export default function ReviewModal() {
+  const history = useHistory();
   const [photo, setPhoto] = useState({});
 
   useEffect(() => {

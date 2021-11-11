@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import Comment from "./Comment";
 
-export default function HomeReview() {
+export default function HomeReview({ review }) {
   // State
   const location = useLocation();
   const [comments, setComments] = useState([
@@ -56,10 +56,10 @@ export default function HomeReview() {
     <div id="home-review">
       <Link to={`/user/${"skdisk3895"}`} className="home-review__user">
         <i className="fas fa-seedling"></i>
-        <span>skdisk3895</span>
+        <span>{review.user_id}</span>
       </Link>
       <div className="home-review__photo">
-        <img src="https://picsum.photos/700" alt="User's photo" />
+        <img src={`${process.env.PUBLIC_URL}/img/uploadedFiles/${review.image}`} alt="User's photo" />
       </div>
       <div className="home-review__icon">
         <i className="far fa-heart"></i>
@@ -69,34 +69,24 @@ export default function HomeReview() {
         <b>0명</b>이 좋아합니다.
       </div>
       <div className="home-review__description">
-        <p className="description__username">skdisk3895</p>
+        <p className="description__username">{review.user_id}</p>
         {reviewHeightToggle ? (
           <>
-            <p className="description__content-full">
-              is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
-              an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-              into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-              Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
+            <p className="description__content-full">{review.description}</p>
             <button onClick={adjustReviewHeight} className="description__briefly">
               간략히
             </button>
           </>
         ) : (
           <>
-            <p className="description__content-briefly">
-              is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
-              an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-              into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-              Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
+            <p className="description__content-briefly">{review.description}</p>
             <button onClick={adjustReviewHeight} className="description__more">
               더 보기
             </button>
           </>
         )}
         <div className="description__hashtag">
-          <Link to={`/movie/${2523}/reviews`}>#니모를 찾아서</Link>
+          <Link to={`/movie/${review.movie}/reviews`}>{`#${review.movie}`}</Link>
         </div>
         <div className="description__rate">
           <i className="fas fa-star"></i>

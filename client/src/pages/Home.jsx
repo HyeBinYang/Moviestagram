@@ -13,22 +13,29 @@ export default function Home() {
   const history = useHistory();
   const [spinner, setSpinner] = useState(true);
   const [recommandedMovies, setRecommandedMovies] = useState([]);
+  const [newReviews, setNewReviews] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("/movie/popular")
-      .then((res) => {
-        setRecommandedMovies(res.data.results.slice(0, 5));
-        setSpinner(false);
-      })
-      .catch((err) => console.log(err));
+    const getRecommendedMovies = async () => {
+      const movies = await axios.get("/movie/popular");
+      setRecommandedMovies(movies.data.results.slice(0, 5));
+    };
+
+    const getNewReviews = async () => {
+      const reviews = await axios.get("/review/new");
+      setNewReviews(reviews.data);
+    };
+
+    getRecommendedMovies();
+    getNewReviews();
+    setSpinner(false);
   }, []);
 
   return (
     <>
       {!spinner ? (
         <div id="home">
-          <LeftSide />
+          <LeftSide newReviews={newReviews} />
           <RightSide recommandedMovies={recommandedMovies} />
         </div>
       ) : (

@@ -11,10 +11,11 @@ module.exports = {
       dateStrings: "date",
     });
 
-    connection.beginTransaction();
-
     try {
       const { postId } = req.params;
+
+      connection.beginTransaction();
+
       const [comments] = await connection("SELECT * FROM comment WHERE post_id=?", [postId]);
       res.status(200).json(comments);
       connection.commit();
@@ -32,21 +33,17 @@ module.exports = {
       dateStrings: "date",
     });
 
-    connection.beginTransaction();
-
     try {
       const { postId } = req.params;
       const { content, userName } = req.body;
 
-      // userName 값으로 DB에서 유저 찾기
-      const [user] = await connection.query("SELECT id FROM user WHERE username=?", [userName]);
-      const userId = user[0].id;
+      connection.beginTransaction();
 
       // DB에 댓글 등록
       await connection.query("INSERT INTO comment (content, post_id, user_id, created, updated) VALUES (?, ?, ?, ?, ?)", [
         content,
         postId,
-        userId,
+        userName,
         moment().format("YYYY-MM-DD HH:mm:ss"),
         moment().format("YYYY-MM-DD HH:mm:ss"),
       ]);
@@ -67,11 +64,11 @@ module.exports = {
       dateStrings: "date",
     });
 
-    connection.beginTransaction();
-
     try {
       const { postId, commentId } = req.params;
       const { content } = req.body;
+
+      connection.beginTransaction();
 
       // DB에 댓글 수정
       await connection.query("UPDATE comment SET content=?, updated=? WHERE id=? AND post_id=?", [
@@ -85,6 +82,7 @@ module.exports = {
       connection.commit();
     } catch (err) {
       connection.rollback();
+      console.log(err);
       next(err);
     }
   },
@@ -97,18 +95,22 @@ module.exports = {
       dateStrings: "date",
     });
 
-    connection.beginTransaction();
-
     try {
       const { postId, commentId } = req.params;
 
-      // DB에 댓글 삭제
-      await connection.query("DELETE from comment WHERE id=? AND post_id=?", [commentId, postId]);
+      connection.beginTransaction();
 
-      res.status(200).json(comments);
+      // comment_like_user 에 있는 데이터를 전부 삭제
+      await connection.query("DELETE FROM comment_like_user WHERE comment_id=?", [commentId]);
+
+      // DB에 댓글 삭제
+      await connection.query("DELETE FROM comment WHERE id=? AND post_id=?", [commentId, postId]);
+
       res.status(200).json({ message: "Complete delete comment" });
+      connection.commit();
     } catch (err) {
       connection.rollback();
+      console.log(err);
       next(err);
     }
   },
