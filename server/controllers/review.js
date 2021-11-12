@@ -318,7 +318,7 @@ module.exports = {
       // review 저장 (insert)
       await connection.query("INSERT INTO post (description, image, movie_id, movie_name, rate, user_id, created, updated) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [
         description,
-        "image",
+        req.file.filename,
         movieId,
         movieName,
         rate,
@@ -340,7 +340,6 @@ module.exports = {
         if (!originHashtag.length) {
           await connection.query("INSERT INTO hashtag (name) VALUES (?)", [hashtag]);
           const [newHashtag] = await connection.query("SELECT id FROM hashtag ORDER BY id DESC LIMIT 1");
-          console.log(newHashtag, hashtag);
           hashtagId = newHashtag[0].id;
         } else {
           hashtagId = originHashtag[0].id;

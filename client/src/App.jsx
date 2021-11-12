@@ -30,7 +30,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    console.log("sd");
     onSilentRefresh();
   }, []);
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./Reviews.css";
+import "./MovieReviews.css";
 
-import Review from "./Review";
+import Review from "../common/Review";
 
 export default function Reviews({ movieReviews }) {
   const location = useLocation();
@@ -13,8 +13,8 @@ export default function Reviews({ movieReviews }) {
         return (
           <Link
             to={{
-              pathname: `/review/${123}`,
-              state: { background: location },
+              pathname: `/review/${movieReview.id}`,
+              state: { background: location, postId: movieReview.id },
             }}
             key={movieReview.id}
           >

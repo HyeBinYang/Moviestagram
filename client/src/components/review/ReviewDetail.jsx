@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 
 export default function ReviewDetail({ movie, actors, movieReviews }) {
   const location = useLocation();
-  console.log(movie);
 
   return (
     <div id="reviewdetail">
@@ -58,7 +57,7 @@ export default function ReviewDetail({ movie, actors, movieReviews }) {
           <Link
             to={{
               pathname: "/write",
-              state: { background: location, movieId: movie.id },
+              state: { background: location, movieId: movie.id, movieName: movie.title },
             }}
             className="info__review"
           >

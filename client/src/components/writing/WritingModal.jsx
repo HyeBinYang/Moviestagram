@@ -1,13 +1,45 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import "./WritingModal.css";
 
-export default function WritingModal({ movieId }) {
+export default function WritingModal({ movieId, movieName }) {
+  const history = useHistory();
+  const userName = useSelector((state) => state.auth.userId);
   const [hashtag, setHashtag] = useState("");
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState(null);
-  const userName = useSelector((state) => state.auth.userId);
+  const [rate, setRate] = useState(0);
+  const [onDisplayRate, setOnDisplayRate] = useState(0);
+  const [filledWidth, setFilledWidth] = useState(0);
+
+  const widthToRate = {
+    18: 0.5,
+    36: 1.0,
+    54: 1.5,
+    72: 2,
+    90: 2.5,
+    108: 3,
+    126: 3.5,
+    144: 4,
+    162: 4.5,
+    180: 5,
+  };
+
+  const rateToWidth = {
+    0: 0,
+    0.5: 18,
+    1: 36,
+    1.5: 54,
+    2: 72,
+    2.5: 90,
+    3: 108,
+    3.5: 126,
+    4: 144,
+    4.5: 162,
+    5: 180,
+  };
 
   const previewImage = (e) => {
     const reader = new FileReader();
@@ -43,6 +75,46 @@ export default function WritingModal({ movieId }) {
     );
   };
 
+  // 평점
+  const onMoveRate = (event) => {
+    const offsetX = event.nativeEvent.offsetX;
+
+    if (offsetX <= 18) {
+      setFilledWidth(18);
+    } else if (offsetX <= 36) {
+      setFilledWidth(36);
+    } else if (offsetX <= 54) {
+      setFilledWidth(54);
+    } else if (offsetX <= 72) {
+      setFilledWidth(72);
+    } else if (offsetX <= 90) {
+      setFilledWidth(90);
+    } else if (offsetX <= 108) {
+      setFilledWidth(108);
+    } else if (offsetX <= 126) {
+      setFilledWidth(126);
+    } else if (offsetX <= 144) {
+      setFilledWidth(144);
+    } else if (offsetX <= 162) {
+      setFilledWidth(162);
+    } else if (offsetX <= 180) {
+      setFilledWidth(180);
+    }
+
+    setOnDisplayRate(widthToRate[filledWidth]);
+  };
+
+  const onClickRate = () => {
+    setRate(widthToRate[filledWidth]);
+    setOnDisplayRate(widthToRate[filledWidth]);
+    setFilledWidth(rateToWidth[onDisplayRate]);
+  };
+
+  const onLeaveRate = () => {
+    setFilledWidth(rateToWidth[rate]);
+    setOnDisplayRate(rate);
+  };
+
   const submit = () => {
     const hashtags = hashtag.split(" ").filter((hashtag) => hashtag);
     const formData = new FormData();
@@ -51,44 +123,45 @@ export default function WritingModal({ movieId }) {
     formData.append("photo", photo.file);
     formData.append("hashtags", hashtags);
     formData.append("movieId", movieId);
+    formData.append("movieName", movieName);
+    formData.append("rate", rate);
 
-    axios.post("/review/write", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    axios
+      .post("/review/write", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(() => {
+        history.push(`/user/${userName}`);
+      });
   };
 
   return (
     <div id="writingmodal">
       {photo ? renderImage() : renderFileButton()}
       <div className="writingmodal__right">
-        <span className="star-input">
-          <span className="rate__title">평점</span>
-          <span className="input">
-            <input type="radio" name="star-input" id="p1" value="1" />
-            <label for="p1">1</label>
-            <input type="radio" name="star-input" id="p2" value="2" />
-            <label for="p2">2</label>
-            <input type="radio" name="star-input" id="p3" value="3" />
-            <label for="p3">3</label>
-            <input type="radio" name="star-input" id="p4" value="4" />
-            <label for="p4">4</label>
-            <input type="radio" name="star-input" id="p5" value="5" />
-            <label for="p5">5</label>
-            <input type="radio" name="star-input" id="p6" value="6" />
-            <label for="p6">6</label>
-            <input type="radio" name="star-input" id="p7" value="7" />
-            <label for="p7">7</label>
-            <input type="radio" name="star-input" id="p8" value="8" />
-            <label for="p8">8</label>
-            <input type="radio" name="star-input" id="p9" value="9" />
-            <label for="p9">9</label>
-            <input type="radio" name="star-input" id="p10" value="10" />
-            <label for="p10">10</label>
-          </span>
-          <output for="star-input">0점</output>
-        </span>
+        <div className="rate">
+          <div onMouseMove={onMoveRate} onClick={onClickRate} onMouseLeave={onLeaveRate} className="rate__icon">
+            <div className="rate__empty">
+              <span>★</span>
+              <span>★</span>
+              <span>★</span>
+              <span>★</span>
+              <span>★</span>
+            </div>
+            <div className="rate__fill" style={{ width: `${filledWidth}px` }}>
+              <span>★</span>
+              <span>★</span>
+              <span>★</span>
+              <span>★</span>
+              <span>★</span>
+            </div>
+          </div>
+          <div className="rate__score">
+            <b>{onDisplayRate}</b>
+          </div>
+        </div>
         <input onChange={(e) => setHashtag(e.target.value)} type="text" placeholder="#해시태그" />
         <textarea onChange={(e) => setDescription(e.target.value)} placeholder="내용"></textarea>
         <button onClick={submit}>글 올리기</button>

@@ -96,40 +96,8 @@
   overflow-y: scroll;
 }
 
-.comment__user {
-  display: flex;
-  justify-content: space-between;
-}
-
-.detail_sub {
-  margin-top: 10px;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.3);
-}
-
-.detail_sub > span:first-child {
-  margin-right: 8px;
-}
-
-.user__info {
-  display: flex;
-  align-items: center;
-}
-
-.user__info > i:first-child {
-  color: green;
-  font-size: 32px;
-  margin-right: 8px;
-}
-
-.setting__btn > i:first-child,
-.setting__btn > i:last-child {
-  font-size: 24px;
-  margin-left: 10px;
-}
-
 .info__write {
-  width: 540px;
+  width: 500px;
   position: absolute;
   bottom: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);

@@ -5,7 +5,7 @@ import Shadow from "../components/common/Shadow";
 export default function Writing({ location }) {
   return (
     <>
-      <WritingModal movieId={location.state.movieId} />
+      <WritingModal movieId={location.state.movieId} movieName={location.state.movieName} />
       <Shadow />
     </>
   );

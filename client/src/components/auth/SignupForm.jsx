@@ -25,7 +25,7 @@ export default function SignupForm() {
     };
     axios
       .post("/auth/register", formData)
-      .then(() => history.push("/login"))
+      .then(() => history.push("/"))
       .catch((err) => {
         // 이미 존재하는 아이디
         // 패스워드 불일치 등등 처리
@@ -44,7 +44,7 @@ export default function SignupForm() {
         회원가입
       </button>
       <div className="signupform__signup">
-        계정이 있으신가요? <Link to="/login">로그인하러 가기</Link>
+        계정이 있으신가요? <Link to="/">로그인하러 가기</Link>
       </div>
     </div>
   );

@@ -70,7 +70,6 @@ export default function HomeReview({ review }) {
   const getCreated = (created) => {
     const now = new Date();
     const createdDate = new Date(created);
-    console.log(created);
 
     const secDiff = (now.getTime() - createdDate.getTime()) / 1000;
     const minDiff = secDiff / 60;
@@ -104,6 +103,79 @@ export default function HomeReview({ review }) {
     } else {
       return "몇초 전";
     }
+  };
+
+  const setRate = () => {
+    const rateToIcon = {
+      0.5: <></>,
+      1: (
+        <>
+          <i className="fas fa-star"></i>
+        </>
+      ),
+      1.5: (
+        <>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star-half"></i>
+        </>
+      ),
+      2: (
+        <>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+        </>
+      ),
+      2.5: (
+        <>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star-half"></i>
+        </>
+      ),
+      3: (
+        <>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+        </>
+      ),
+      3.5: (
+        <>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star-half"></i>
+        </>
+      ),
+      4: (
+        <>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+        </>
+      ),
+      4.5: (
+        <>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star-half"></i>
+        </>
+      ),
+      5: (
+        <>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+          <i className="fas fa-star"></i>
+        </>
+      ),
+    };
+
+    return rateToIcon[review.rate];
   };
 
   return (
@@ -153,13 +225,7 @@ export default function HomeReview({ review }) {
             </Link>
           ))}
         </div>
-        <div className="description__rate">
-          {review.rate > 0.5 ? <i className="fas fa-star"></i> : <i className="fas fa-star-half"></i>}
-          {review.rate > 1.5 ? <i className="fas fa-star"></i> : <i className="fas fa-star-half"></i>}
-          {review.rate > 2.5 ? <i className="fas fa-star"></i> : <i className="fas fa-star-half"></i>}
-          {review.rate > 3.5 ? <i className="fas fa-star"></i> : <i className="fas fa-star-half"></i>}
-          {review.rate > 4.5 ? <i className="fas fa-star"></i> : <i className="fas fa-star-half"></i>}
-        </div>
+        <div className="description__rate">{setRate()}</div>
       </div>
       <div className="home-review__comments">
         {review.comments.length > 5 ? (

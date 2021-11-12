@@ -5,7 +5,7 @@ import "./styles/MovieDetail.css";
 
 // Component
 import ReviewDetail from "../components/review/ReviewDetail";
-import Reviews from "../components/review/Reviews";
+import MovieReviews from "../components/review/MovieReviews";
 import Spinner from "../components/common/Spinner";
 import MovieNotFound from "../components/common/MovieNotFound";
 
@@ -39,7 +39,7 @@ export default function MovieDetail() {
         movie ? (
           <div id="moviedetail">
             <ReviewDetail movie={movie} actors={actors.cast} movieReviews={movieReviews} />
-            <Reviews movieReviews={movieReviews} />
+            <MovieReviews movieReviews={movieReviews} />
           </div>
         ) : (
           <MovieNotFound />
