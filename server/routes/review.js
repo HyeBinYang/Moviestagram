@@ -8,9 +8,7 @@ const storage = multer.diskStorage({
     cb(null, "C:/Users/skdis/OneDrive/Desktop/Github/movie-review-app/client/public/img/uploadedFiles");
   },
   filename(req, file, cb) {
-    const regex = / /gi;
-    const originalname = file.originalname;
-    cb(null, `${Date.now()}__${originalname.replace(regex, "")}`);
+    cb(null, `${Date.now()}__${req.body.userName}`);
   },
 });
 

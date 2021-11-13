@@ -5,6 +5,12 @@ import { Link, useLocation } from "react-router-dom";
 export default function ReviewDetail({ movie, actors, movieReviews }) {
   const location = useLocation();
 
+  const getRateAverage = () => {
+    let sum = 0;
+    movieReviews.forEach((review) => (sum += review.rate));
+    return Math.round((sum / movieReviews.length) * 100) / 100 || 0;
+  };
+
   return (
     <div id="reviewdetail">
       <div className="reviewdetail__movie">
@@ -41,7 +47,7 @@ export default function ReviewDetail({ movie, actors, movieReviews }) {
                 <span>평점</span>
               </dt>
               <dd>
-                <span>0</span>
+                <span>{getRateAverage()} 점</span>
               </dd>
             </div>
             <div className="info__group">
@@ -49,7 +55,7 @@ export default function ReviewDetail({ movie, actors, movieReviews }) {
                 <span>리뷰수</span>
               </dt>
               <dd>
-                <span>{movieReviews.length} 명</span>
+                <span>{movieReviews.length} 개</span>
               </dd>
             </div>
           </dl>
