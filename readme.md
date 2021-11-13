@@ -2,6 +2,11 @@
 
 ## 🤔 사용한 기술 스택은 어떤건가요?
 
+![Generic badge](https://img.shields.io/badge/ReactJS-v17.0.2-61DAFB?logo=react&style=flat)
+![Generic badge](https://img.shields.io/badge/Redux-v4.1.2-%23593d88.svg?logo=redux&style=flat)
+![Generic badge](https://img.shields.io/badge/NodeJS-v14.2-6DA55F?logo=nodedotjs&style=flat)
+![Generic badge](https://img.shields.io/badge/MySQL-v8.2-%23316192.svg?logo=mysql&style=flat)
+
 <br>
 
 ## 🤔 프로젝트의 기능들은 어떤 것이 있나요?
