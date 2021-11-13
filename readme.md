@@ -4,8 +4,8 @@
 
 ![Generic badge](https://img.shields.io/badge/ReactJS-v17.0.2-61DAFB?logo=react&style=flat)
 ![Generic badge](https://img.shields.io/badge/Redux-v4.1.2-%23593d88.svg?logo=redux&style=flat)
-![Generic badge](https://img.shields.io/badge/NodeJS-v14.2-6DA55F?logo=nodedotjs&style=flat)
-![Generic badge](https://img.shields.io/badge/MySQL-v8.2-%23316192.svg?logo=mysql&style=flat)
+![Generic badge](https://img.shields.io/badge/NodeJS-v12.18.3-6DA55F?logo=nodedotjs&style=flat)
+![Generic badge](https://img.shields.io/badge/MySQL-v8.0.22-%23316192.svg?logo=mysql&style=flat)
 
 <br>
 
@@ -62,8 +62,9 @@
   <br>
 
 - 홈
+  ![](./images/home.PNG)
 
-    <br>
+  <br>
 
 - 영화 검색 결과
   ![](./images/movie-list.PNG)
@@ -81,8 +82,9 @@
   <br>
 
 - 유저 정보
+  ![](./images/user.PNG)
 
-<br>
+  <br>
 
 ## 🤔 앞으로의 계획은 어떤 것이 있나요?
 
