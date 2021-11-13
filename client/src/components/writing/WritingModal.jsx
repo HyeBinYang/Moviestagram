@@ -71,6 +71,12 @@ export default function WritingModal({ movieId, movieName }) {
         <div className="review__image">
           <img src={[photo.previewURL]} alt="" />
         </div>
+        <div className="review__btn">
+          <label htmlFor="input-file" className="btn__reselect">
+            <i class="fas fa-exchange-alt"></i>
+          </label>
+          <input onChange={previewImage} id="input-file" type="file" className="left__image" />
+        </div>
       </div>
     );
   };
