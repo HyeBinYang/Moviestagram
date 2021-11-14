@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./Navbar.css";
 import axios from "axios";
 import { clearUser } from "../../modules/auth";
@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 
 export default function Navbar() {
   const history = useHistory();
-  const location = useLocation();
   const userId = useSelector((state) => state.auth.userId);
   const dispatch = useDispatch();
   const [movieInput, setMovieInput] = useState("");

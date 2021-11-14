@@ -1,13 +1,19 @@
 @import url("../../css/common.css");
 
 #navbar {
-  width: 90vw;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
   background-color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
-  padding: 0 50px;
+  padding: 0 100px;
+  z-index: 1;
 }
 
 .navbar__logo {
