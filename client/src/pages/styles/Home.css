@@ -3,3 +3,12 @@
   margin: 30px auto 0 auto;
   display: flex;
 }
+
+.home__right {
+  position: relative;
+  width: 0;
+  height: auto;
+  flex-grow: 1;
+  flex-shrink: 0;
+  margin-bottom: 20px;
+}

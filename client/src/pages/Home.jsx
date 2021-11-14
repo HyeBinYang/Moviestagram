@@ -33,7 +33,9 @@ export default function Home() {
       {!spinner ? (
         <div id="home">
           <LeftSide newReviews={newReviews} />
-          <RightSide recommandedMovies={recommandedMovies} />
+          <div className="home__right">
+            <RightSide recommandedMovies={recommandedMovies} />
+          </div>
         </div>
       ) : (
         <Spinner />

@@ -1,7 +1,6 @@
 #rightside {
-  width: 0;
-  flex-grow: 1;
-  flex-shrink: 0;
+  position: fixed;
+  top: 110px;
   margin-bottom: 20px;
 }
 
@@ -10,18 +9,22 @@
   align-items: center;
   margin-bottom: 50px;
   text-decoration: none;
-  color: #000000;
 }
 
 .rightside__user > i {
-  font-size: 48px;
+  font-size: 36px;
   color: green;
   margin-right: 15px;
 }
 
 .rightside__user > span {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 600;
+  color: #5c5c5c;
+}
+
+.rightside__recommend > h3 {
+  color: #5c5c5c;
 }
 
 .recommend__movies {
@@ -31,5 +34,6 @@
 
 .recommend__movies > a {
   text-decoration: none;
-  color: #000000;
+  color: #5c5c5c;
+  font-size: 14px;
 }

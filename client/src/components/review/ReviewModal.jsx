@@ -12,7 +12,6 @@ export default function ReviewModal({ movieReview }) {
   const location = useLocation();
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState();
-  const [reviewHeightToggle, setReviewHeightToggle] = useState(false);
   const [likeToggle, setLikeToggle] = useState(false);
   const [postLikeCount, setPostLikeCount] = useState(0);
 

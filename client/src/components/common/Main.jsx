@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+import React from "react";
+import { Switch, Route, useLocation } from "react-router-dom";
+import "./Main.css";
 
 import Home from "../../pages/Home";
 import Login from "../../pages/Login";

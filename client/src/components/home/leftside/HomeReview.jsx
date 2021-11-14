@@ -180,10 +180,18 @@ export default function HomeReview({ review }) {
 
   return (
     <div id="home-review">
-      <Link to={`/user/${review.username}`} className="home-review__user">
-        <i className="fas fa-seedling"></i>
-        <span>{review.username}</span>
-      </Link>
+      <div className="home-review__user">
+        <Link to={`/user/${review.username}`} className="user__info">
+          <i className="fas fa-seedling"></i>
+          <span>{review.username}</span>
+        </Link>
+        {userName === review.username ? (
+          <div className="user__setting">
+            <i className="fas fa-trash-alt"></i>
+            <i className="fas fa-edit"></i>
+          </div>
+        ) : null}
+      </div>
       <div className="home-review__photo">
         <img src={`${process.env.PUBLIC_URL}/img/uploadedFiles/${review.image}`} alt="User's photo" />
       </div>

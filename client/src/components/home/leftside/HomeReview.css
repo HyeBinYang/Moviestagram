@@ -1,5 +1,6 @@
 #home-review {
   width: 100%;
+  background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   margin-bottom: 20px;
@@ -8,20 +9,35 @@
 }
 
 .home-review__user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user__info {
   padding: 10px 20px;
   text-decoration: none;
 }
 
-.home-review__user > i {
+.user__info > i {
   font-size: 25px;
   color: green;
   margin-right: 8px;
 }
 
-.home-review__user > span {
+.user__info > span {
   color: #000000;
   font-size: 18px;
   font-weight: bold;
+}
+
+.user__setting {
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.user__setting > i {
+  margin-left: 15px;
 }
 
 .home-review__photo {
