@@ -5,23 +5,23 @@ export const setUser = (response) => ({ type: SET_USER, payload: response.data }
 export const clearUser = () => ({ type: CLEAR_USER });
 
 const initialState = {
-  userId: "",
+  userName: "",
   accessToken: "",
 };
 
 function auth(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
-      const userId = action.payload.userId;
+      const userName = action.payload.userName;
       const accessToken = action.payload.accessToken;
 
       return {
-        userId,
+        userName,
         accessToken,
       };
     case CLEAR_USER:
       return {
-        userId: "",
+        userName: "",
         accessToken: "",
       };
     default:

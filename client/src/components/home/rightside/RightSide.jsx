@@ -7,7 +7,7 @@ import CommandedMovie from "./CommandedMovie";
 import { useSelector } from "react-redux";
 
 export default function RightSide({ recommandedMovies }) {
-  const userName = useSelector((state) => state.auth.userId);
+  const userName = useSelector((state) => state.auth.userName);
 
   return (
     <div id="rightside">

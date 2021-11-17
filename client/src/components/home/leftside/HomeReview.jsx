@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./HomeReview.css";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -15,7 +15,7 @@ export default function HomeReview({ review }) {
   const [likeToggle, setLikeToggle] = useState(false);
   const [postLikeCount, setPostLikeCount] = useState(0);
 
-  const userName = useSelector((state) => state.auth.userId);
+  const userName = useSelector((state) => state.auth.userName);
 
   useEffect(() => {
     if (review.postLikeUsers.filter((user) => user.username === userName).length) setLikeToggle(true);
@@ -25,7 +25,7 @@ export default function HomeReview({ review }) {
 
   // --------------Function ------------------
   // 좋아요
-  const onHandleLike = () => {
+  const onHandleLike = useCallback(() => {
     axios
       .post(`/review/like/${review.id}`, { userName })
       .then(() => {
@@ -33,26 +33,26 @@ export default function HomeReview({ review }) {
         setLikeToggle(!likeToggle);
       })
       .catch((err) => console.log(err));
-  };
+  }, [userName, likeToggle, postLikeCount]);
 
-  const resizeTextareaHeight = (e) => {
+  const resizeTextareaHeight = useCallback((e) => {
     e.target.style.height = "40px";
     e.target.style.height = `${e.target.scrollHeight}px`;
-  };
+  }, []);
 
   // 장문 리뷰 글 높이 조절
-  const adjustReviewHeight = () => {
+  const adjustReviewHeight = useCallback(() => {
     setReviewHeightToggle(!reviewHeightToggle);
-  };
+  }, [reviewHeightToggle]);
 
   // 댓글 textarea 면적 조절
-  const writeComment = (e) => {
+  const writeComment = useCallback((e) => {
     setCommentText(e.target.value);
     resizeTextareaHeight(e);
-  };
+  }, []);
 
   // 댓글 등록
-  const submitComment = () => {
+  const submitComment = useCallback(() => {
     if (commentText.length > 0) {
       axios
         .post(`/comment/${review.id}/write`, {
@@ -65,9 +65,9 @@ export default function HomeReview({ review }) {
         })
         .catch((err) => console.log(err));
     }
-  };
+  }, [comments, commentText, userName]);
 
-  const getCreated = (created) => {
+  const getCreated = useCallback((created) => {
     const now = new Date();
     const createdDate = new Date(created);
 
@@ -103,9 +103,9 @@ export default function HomeReview({ review }) {
     } else {
       return "몇초 전";
     }
-  };
+  }, []);
 
-  const setRate = () => {
+  const setRate = useCallback(() => {
     const rateToIcon = {
       0.5: <></>,
       1: (
@@ -176,7 +176,7 @@ export default function HomeReview({ review }) {
     };
 
     return rateToIcon[review.rate];
-  };
+  }, []);
 
   return (
     <div id="home-review">

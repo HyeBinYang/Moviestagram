@@ -15,12 +15,12 @@ import { useSelector } from "react-redux";
 export default function Main() {
   const location = useLocation();
   const background = location.state && location.state.background;
-  const userId = useSelector((state) => state.auth.userId);
+  const userName = useSelector((state) => state.auth.userName);
 
   return (
     <div id="main">
       <Switch location={background || location}>
-        {!userId ? <Route exact path="/" component={Login} /> : <Route exact path="/" component={Home} />}
+        {!userName ? <Route exact path="/" component={Login} /> : <Route exact path="/" component={Home} />}
         <Route path="/write" component={Writing} />
         <Route path="/signup" component={Signup} />
         <Route path="/movies" component={Movies} />

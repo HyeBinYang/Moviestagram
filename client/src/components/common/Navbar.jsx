@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import "./Navbar.css";
@@ -8,25 +8,28 @@ import { useDispatch } from "react-redux";
 
 export default function Navbar() {
   const history = useHistory();
-  const userId = useSelector((state) => state.auth.userId);
+  const userName = useSelector((state) => state.auth.userName);
   const dispatch = useDispatch();
   const [movieInput, setMovieInput] = useState("");
 
-  const searchMovie = (e) => {
-    if (e.key === "Enter") {
-      history.push({
-        pathname: "/movies",
-        search: `?movie=${movieInput}`,
-      });
-    }
-  };
+  const searchMovie = useCallback(
+    (e) => {
+      if (e.key === "Enter") {
+        history.push({
+          pathname: "/movies",
+          search: `?movie=${movieInput}`,
+        });
+      }
+    },
+    [movieInput]
+  );
 
-  const logout = () => {
+  const logout = useCallback(() => {
     axios
       .post("/auth/logout")
       .then(() => dispatch(clearUser()))
       .catch((err) => console.log(err));
-  };
+  }, []);
 
   return (
     <nav id="navbar">
@@ -43,7 +46,7 @@ export default function Navbar() {
         <li className="menu">
           <i className="far fa-heart"></i>
         </li>
-        {userId ? (
+        {userName ? (
           <li className="menu" onClick={logout}>
             <i className="fas fa-sign-out-alt"></i>
           </li>

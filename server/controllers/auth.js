@@ -14,7 +14,7 @@ const saltCount = 10;
 const controller = {
   async regiser(req, res, next) {
     try {
-      let { userId, email, password, passwordConfirm } = req.body;
+      let { userName, email, password, passwordConfirm } = req.body;
 
       bcrypt.genSalt(saltCount, async (err, salt) => {
         if (err) return next(err);
@@ -22,7 +22,7 @@ const controller = {
           if (err) return next(err);
           password = hashedPassword;
           const query = "INSERT INTO user (username, email, password, salt) VALUES (?, ?, ?, ?)";
-          const params = [userId, email, password, salt];
+          const params = [userName, email, password, salt];
 
           connection.query(query, params, (err) => {
             if (err) console.log(err);
@@ -36,12 +36,12 @@ const controller = {
   },
   async login(req, res, next) {
     // 클라이언트에서 데이터 받아옴
-    const { userId, password } = req.body;
+    const { userName, password } = req.body;
 
     // 아이디가 존재하는지 DB에서 찾기
     const query = "SELECT * FROM user WHERE username=?";
 
-    await connection.query(query, [userId], (err, rows) => {
+    await connection.query(query, [userName], (err, rows) => {
       if (err) console.log(err);
       else {
         if (!rows.length) {
@@ -55,12 +55,12 @@ const controller = {
           if (err || hashedPassword !== originPassword) return next(err);
 
           // 토큰 발급 (rt + at)
-          const refreshToken = jwt.sign({ userId }, "secret", {
+          const refreshToken = jwt.sign({ userName }, "secret", {
             expiresIn: "14d",
             issuer: "hyebin",
           });
 
-          const accessToken = jwt.sign({ userId }, "secret", {
+          const accessToken = jwt.sign({ userName }, "secret", {
             expiresIn: "1h",
             issuer: "hyebin",
           });
@@ -70,7 +70,7 @@ const controller = {
             secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 14,
           });
-          return res.status(200).json({ accessToken, userId });
+          return res.status(200).json({ accessToken, userName });
         });
       }
     });
@@ -85,24 +85,22 @@ const controller = {
     const accessToken = req.headers.token;
     const refreshToken = req.cookies.refreshToken;
 
+    console.log(accessToken, refreshToken);
     // Accesstoken 이 없을 때
     if (!accessToken || accessToken === "undefined") {
       // Refreshtoken 도 없으면 401 에러로 응답하기
       if (!refreshToken) {
-        console.log(1);
         res.status(401).json({ code: 401, message: "권한이 없습니다." });
       } else {
         // Refreshtoken 이 있으면 accesstoken 재발급
         const payload = refreshToken.split(".")[1];
-        const userId = JSON.parse(Buffer.from(payload, "base64").toString()).userId;
-        const newAccessToken = jwt.sign({ userId }, "secret", { expiresIn: "1h", issuer: "hyebin" });
-        // req.cookies.access = newAccessToken;
-        return res.status(200).json({ newAccessToken, userId });
+        const userName = JSON.parse(Buffer.from(payload, "base64").toString()).userName;
+        const newAccessToken = jwt.sign({ userName }, "secret", { expiresIn: "1h", issuer: "hyebin" });
+        return res.status(200).json({ newAccessToken, userName });
       }
     } else {
       if (!refreshToken) {
-        console.log(3);
-        const newRefreshToken = jwt.sign({ userId }, "secret", { expiresIn: "14d", issuer: "cotak" });
+        const newRefreshToken = jwt.sign({ userName }, "secret", { expiresIn: "14d", issuer: "hyebin" });
         res.cookie("refreshToken", newRefreshToken, {
           httpOnly: true,
           secure: true,
@@ -110,7 +108,6 @@ const controller = {
         });
         return res.status(200).json({ code: 200, message: "요청 성공" });
       } else {
-        console.log(4);
         return res.status(200).json({ code: 200, message: "요청 성공" });
       }
     }
