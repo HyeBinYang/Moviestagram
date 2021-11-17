@@ -9,13 +9,15 @@ import { useSelector } from "react-redux";
 export default function HomeReview({ review }) {
   // State
   const location = useLocation();
+  const userName = useSelector((state) => state.auth.userName);
+  const [commentForm, setCommentForm] = useState({
+    content: "",
+    userName: userName,
+  });
   const [comments, setComments] = useState([]);
-  const [commentText, setCommentText] = useState();
   const [reviewHeightToggle, setReviewHeightToggle] = useState(false);
   const [likeToggle, setLikeToggle] = useState(false);
   const [postLikeCount, setPostLikeCount] = useState(0);
-
-  const userName = useSelector((state) => state.auth.userName);
 
   useEffect(() => {
     if (review.postLikeUsers.filter((user) => user.username === userName).length) setLikeToggle(true);
@@ -47,25 +49,36 @@ export default function HomeReview({ review }) {
 
   // 댓글 textarea 면적 조절
   const writeComment = useCallback((e) => {
-    setCommentText(e.target.value);
+    setCommentForm({
+      ...commentForm,
+      [e.target.name]: e.target.value,
+    });
     resizeTextareaHeight(e);
   }, []);
 
   // 댓글 등록
   const submitComment = useCallback(() => {
-    if (commentText.length > 0) {
+    if (commentForm.content.length > 0) {
       axios
-        .post(`/comment/${review.id}/write`, {
-          content: commentText,
-          userName,
-        })
-        .then(() => {
-          setComments([...comments, { username: userName, content: commentText, commentLikeUsers: [] }]);
-          setCommentText("");
+        .post(`/comment/${review.id}/write`, commentForm)
+        .then((res) => {
+          setComments([
+            ...comments,
+            {
+              id: res.data.id,
+              username: userName,
+              content: commentForm.content,
+              commentLikeUsers: [],
+            },
+          ]);
+          setCommentForm({
+            userName,
+            content: "",
+          });
         })
         .catch((err) => console.log(err));
     }
-  }, [comments, commentText, userName]);
+  }, [comments, commentForm, userName]);
 
   const getCreated = useCallback((created) => {
     const now = new Date();
@@ -196,7 +209,11 @@ export default function HomeReview({ review }) {
         <img src={`${process.env.PUBLIC_URL}/img/uploadedFiles/${review.image}`} alt="User's photo" />
       </div>
       <div className="home-review__icon">
-        {likeToggle ? <i onClick={onHandleLike} class="fas fa-heart" style={{ color: "red" }}></i> : <i onClick={onHandleLike} className="far fa-heart"></i>}
+        {likeToggle ? (
+          <i onClick={onHandleLike} class="fas fa-heart" style={{ color: "red" }}></i>
+        ) : (
+          <i onClick={onHandleLike} className="far fa-heart"></i>
+        )}
       </div>
       <div className="home-review__likecount">
         <b>{postLikeCount}명</b>이 좋아합니다.
@@ -248,12 +265,25 @@ export default function HomeReview({ review }) {
           </Link>
         ) : null}
         {comments.map((comment, index) => (
-          <Comment reviewId={review.id} comments={comments} comment={comment} setComments={setComments} getCreated={getCreated} key={index} />
+          <Comment
+            reviewId={review.id}
+            comments={comments}
+            comment={comment}
+            setComments={setComments}
+            getCreated={getCreated}
+            key={index}
+          />
         ))}
       </div>
       <div className="home-review__write">
-        <textarea type="text" placeholder="댓글 달기" onChange={writeComment} value={commentText} />
-        {commentText ? (
+        <textarea
+          type="text"
+          placeholder="댓글 달기"
+          name="content"
+          onChange={writeComment}
+          value={commentForm.content}
+        />
+        {commentForm.content ? (
           <button className="active" onClick={submitComment}>
             게시
           </button>

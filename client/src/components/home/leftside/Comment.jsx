@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./Comment.css";
 import axios from "axios";
 
@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function Comment({ reviewId, comments, comment, setComments, getCreated }) {
-  const userName = useSelector((state) => state.auth.userId);
+  const userName = useSelector((state) => state.auth.userName);
   const [commentLikeToggle, setCommentLikeToggle] = useState(false);
   const [commentLikeCount, setCommentLikeCount] = useState(0);
 
@@ -15,7 +15,7 @@ export default function Comment({ reviewId, comments, comment, setComments, getC
     setCommentLikeCount(comment.commentLikeUsers.length);
   }, []);
 
-  const deleteComment = () => {
+  const deleteComment = useCallback(() => {
     axios
       .delete(`/comment/${reviewId}/delete/${comment.id}`)
       .then(() => {
@@ -23,9 +23,9 @@ export default function Comment({ reviewId, comments, comment, setComments, getC
         setComments(newComments);
       })
       .catch((err) => console.log(err));
-  };
+  }, []);
 
-  const onHandleLike = () => {
+  const onHandleLike = useCallback(() => {
     axios
       .post(`/comment/${reviewId}/like/${comment.id}`, { userName })
       .then(() => {
@@ -33,7 +33,7 @@ export default function Comment({ reviewId, comments, comment, setComments, getC
         setCommentLikeToggle(!commentLikeToggle);
       })
       .catch((err) => console.log(err));
-  };
+  }, [commentLikeToggle, commentLikeCount]);
 
   return (
     <div className="comments__comment">

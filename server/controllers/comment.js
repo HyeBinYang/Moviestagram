@@ -44,15 +44,12 @@ module.exports = {
       const userId = user[0].id;
 
       // DB에 댓글 등록
-      await connection.query("INSERT INTO comment (content, post_id, user_id, created, updated) VALUES (?, ?, ?, ?, ?)", [
-        content,
-        postId,
-        userId,
-        moment().format("YYYY-MM-DD HH:mm:ss"),
-        moment().format("YYYY-MM-DD HH:mm:ss"),
-      ]);
+      const [newComment] = await connection.query(
+        "INSERT INTO comment (content, post_id, user_id, created, updated) VALUES (?, ?, ?, ?, ?)",
+        [content, postId, userId, moment().format("YYYY-MM-DD HH:mm:ss"), moment().format("YYYY-MM-DD HH:mm:ss")]
+      );
 
-      res.status(200).json({ message: "Complete write comment" });
+      res.status(200).json({ message: "Complete write comment", id: newComment.insertId });
       connection.commit();
     } catch (err) {
       connection.rollback();
@@ -139,7 +136,10 @@ module.exports = {
       const userId = user[0].id;
 
       // comment_like_user 테이블에서 data 유무확인
-      const [like] = await connection.query("SELECT * FROM comment_like_user WHERE comment_id=? AND user_id=?", [commentId, userId]);
+      const [like] = await connection.query("SELECT * FROM comment_like_user WHERE comment_id=? AND user_id=?", [
+        commentId,
+        userId,
+      ]);
 
       if (!like.length) {
         // 좋아요
