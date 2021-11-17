@@ -17,6 +17,11 @@ export default function Review() {
     };
 
     setReview();
+    document.body.className = "non-scroll";
+
+    return () => {
+      document.body.className = "";
+    };
   }, []);
 
   return (

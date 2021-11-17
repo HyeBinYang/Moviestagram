@@ -7,6 +7,13 @@ body {
   padding: 0;
 }
 
+body.non-scroll {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 img {
   image-rendering: -moz-crisp-edges;
   image-rendering: -o-crisp-edges;

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./Shadow.css";
 import { useHistory } from "react-router-dom";
 
 export default function Shadow() {
   const history = useHistory();
 
-  const goBack = (e) => {
+  const goBack = useCallback((e) => {
     history.goBack();
     e.stopPropagation();
-  };
+  }, []);
 
   return (
     <div id="shadow" onClick={goBack}>
