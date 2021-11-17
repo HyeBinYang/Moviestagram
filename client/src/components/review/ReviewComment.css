@@ -1,3 +1,7 @@
+.comment {
+  margin-bottom: 14px;
+}
+
 .comment__user {
   display: flex;
   justify-content: space-between;
@@ -13,18 +17,18 @@
   margin-right: 8px;
 }
 
-.user__info {
+.comment__user__info {
   display: flex;
   align-items: center;
 }
 
-.user__info > i:first-child {
+.comment__user__info > i:first-child {
   color: green;
   font-size: 32px;
   margin-right: 8px;
 }
 
-.user__info > a {
+.comment__user__info > a {
   text-decoration: none;
   color: #000000;
   font-weight: bold;

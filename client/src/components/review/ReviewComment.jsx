@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import "./ReviewComment.css";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function ReviewComment({ reviewId, comments, comment, setComments, getCreated }) {
-  const userName = useSelector((state) => state.auth.userId);
+  const userName = useSelector((state) => state.auth.userName);
   const [commentLikeToggle, setCommentLikeToggle] = useState(false);
   const [commentLikeCount, setCommentLikeCount] = useState(0);
 
@@ -14,7 +14,7 @@ export default function ReviewComment({ reviewId, comments, comment, setComments
     setCommentLikeCount(comment.commentLikeUsers.length);
   }, []);
 
-  const deleteComment = () => {
+  const deleteComment = useCallback(() => {
     axios
       .delete(`/comment/${reviewId}/delete/${comment.id}`)
       .then(() => {
@@ -22,9 +22,9 @@ export default function ReviewComment({ reviewId, comments, comment, setComments
         setComments(newComments);
       })
       .catch((err) => console.log(err));
-  };
+  }, []);
 
-  const onHandleLike = () => {
+  const onHandleLike = useCallback(() => {
     axios
       .post(`/comment/${reviewId}/like/${comment.id}`, { userName })
       .then(() => {
@@ -32,12 +32,14 @@ export default function ReviewComment({ reviewId, comments, comment, setComments
         setCommentLikeToggle(!commentLikeToggle);
       })
       .catch((err) => console.log(err));
-  };
+  }, [commentLikeToggle, commentLikeCount]);
+
+  const commentCreated = useMemo(() => getCreated(comment.created), []);
 
   return (
     <div className="comment">
       <div className="comment__user">
-        <div className="user__info">
+        <div className="comment__user__info">
           <i className="fas fa-seedling"></i>
           <Link to={`/user/${comment.username}`}>{comment.username}</Link>
         </div>
@@ -57,7 +59,7 @@ export default function ReviewComment({ reviewId, comments, comment, setComments
       </div>
       <div className="comment__description">{comment.content}</div>
       <div className="detail_sub">
-        <span>{getCreated(comment.created)}</span>
+        <span>{commentCreated}</span>
         <span>
           좋아요 <b>{commentLikeCount}</b>개
         </span>

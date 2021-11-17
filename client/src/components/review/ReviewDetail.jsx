@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "./ReviewDetail.css";
 import { Link, useLocation } from "react-router-dom";
 
+const getRateAverage = (movieReviews) => {
+  let sum = 0;
+  movieReviews.forEach((review) => (sum += review.rate));
+  return Math.round((sum / movieReviews.length) * 100) / 100 || 0;
+};
+
 export default function ReviewDetail({ movie, actors, movieReviews }) {
   const location = useLocation();
-
-  const getRateAverage = () => {
-    let sum = 0;
-    movieReviews.forEach((review) => (sum += review.rate));
-    return Math.round((sum / movieReviews.length) * 100) / 100 || 0;
-  };
+  const rateAverage = useMemo(() => getRateAverage(movieReviews), []);
 
   return (
     <div id="reviewdetail">
@@ -47,7 +48,7 @@ export default function ReviewDetail({ movie, actors, movieReviews }) {
                 <span>평점</span>
               </dt>
               <dd>
-                <span>{getRateAverage()} 점</span>
+                <span>{rateAverage} 점</span>
               </dd>
             </div>
             <div className="info__group">

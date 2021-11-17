@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import "./Comment.css";
 import axios from "axios";
 
@@ -35,6 +35,8 @@ export default function Comment({ reviewId, comments, comment, setComments, getC
       .catch((err) => console.log(err));
   }, [commentLikeToggle, commentLikeCount]);
 
+  const commentCreated = useMemo(() => getCreated(comment.created), []);
+
   return (
     <div className="comments__comment">
       <div className="comment__description">
@@ -43,7 +45,7 @@ export default function Comment({ reviewId, comments, comment, setComments, getC
         </Link>
         {comment.content}
         <div className="comment__info">
-          <span>{getCreated(comment.created)}</span>
+          <span>{commentCreated}</span>
           <span>
             좋아요 <b>{commentLikeCount}</b>개
           </span>

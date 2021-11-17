@@ -156,6 +156,7 @@ module.exports = {
       connection.commit();
     } catch (err) {
       connection.rollback();
+      console.log(err);
       next(err);
     }
   },
