@@ -10,12 +10,10 @@ export default function Review() {
 
   useEffect(() => {
     const postId = location.state.postId;
-
     const setReview = async () => {
       const response = await axios.get(`/review/${postId}`);
       setMovieReview(response.data);
     };
-
     setReview();
     document.body.className = "non-scroll";
 
