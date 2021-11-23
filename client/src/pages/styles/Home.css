@@ -12,3 +12,14 @@
   flex-shrink: 0;
   margin-bottom: 20px;
 }
+
+@media screen and (max-width: 880px) {
+  #home {
+    width: 90%;
+    justify-content: center;
+  }
+
+  .home__right {
+    display: none;
+  }
+}

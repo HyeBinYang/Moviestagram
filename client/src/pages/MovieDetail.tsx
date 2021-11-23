@@ -19,7 +19,6 @@ export default function MovieDetail() {
 
   useEffect(() => {
     const movieId: string = location.pathname.split("/")[2];
-    console.log(typeof movieId);
 
     const getMovieDetail = async (movieId: string) => {
       const movieDetailResponse = await axios.get(`/movie/search/${movieId}/detail`);

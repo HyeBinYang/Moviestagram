@@ -13,7 +13,7 @@ import Review from "../../pages/Review";
 import { RootStateOrAny, useSelector } from "react-redux";
 
 export default function Main() {
-  const location = useLocation<any>();
+  const location = useLocation();
   const background = location.state && location.state.background;
   const userName = useSelector((state: RootStateOrAny) => state.auth.userName);
 
