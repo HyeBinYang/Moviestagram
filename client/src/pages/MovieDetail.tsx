@@ -17,10 +17,12 @@ export default function MovieDetail() {
   const [movieSpinner, setMovieSpinner] = useState(true);
 
   useEffect(() => {
-    const movieId = location.pathname.split("/")[2];
+    const movieId: number = location.pathname.split("/")[2];
 
-    const getMovieDetail = async (movieId) => {
-      const movieDetailResponse = await axios.get(`/movie/search/${movieId}/detail`);
+    const getMovieDetail = async (movieId: number) => {
+      const movieDetailResponse = await axios.get(
+        `/movie/search/${movieId}/detail`,
+      );
       setMovie(movieDetailResponse.data);
       const movieCastResponse = await axios.get(`/movie/${movieId}/cast`);
       setActors(movieCastResponse.data);
@@ -38,7 +40,11 @@ export default function MovieDetail() {
       {!movieSpinner ? (
         movie ? (
           <div id="moviedetail">
-            <ReviewDetail movie={movie} actors={actors.cast} movieReviews={movieReviews} />
+            <ReviewDetail
+              movie={movie}
+              actors={actors.cast}
+              movieReviews={movieReviews}
+            />
             <MovieReviews movieReviews={movieReviews} />
           </div>
         ) : (

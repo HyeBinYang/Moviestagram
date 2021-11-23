@@ -1,10 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { CookiesProvider } from "react-cookie";
 import axios from "axios";
 import "./index.css";
 import App from "./App";
-// import AppContainer from "./containers/AppContainer";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -17,15 +15,13 @@ const store = createStore(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <CookiesProvider> */}
     <Router>
       <Provider store={store}>
         <App />
       </Provider>
     </Router>
-    {/* </CookiesProvider> */}
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 
 // If you want to start measuring performance in your app, pass a function

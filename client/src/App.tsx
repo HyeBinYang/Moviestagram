@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import "./App.css";
 import { useDispatch } from "react-redux";
 import { setUser } from "./modules/auth";
@@ -18,7 +18,7 @@ export default function App() {
       .catch((err) => {});
   }, []);
 
-  const onLoginSuccess = useCallback((response) => {
+  const onLoginSuccess = useCallback((response: AxiosResponse) => {
     dispatch(setUser(response));
     const accessToken = response.data.newAccessToken;
     // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정

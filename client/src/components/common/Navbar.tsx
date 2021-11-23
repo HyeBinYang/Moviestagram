@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import "./Navbar.css";
 import axios from "axios";
@@ -8,12 +8,12 @@ import { useDispatch } from "react-redux";
 
 export default function Navbar() {
   const history = useHistory();
-  const userName = useSelector((state) => state.auth.userName);
+  const userName = useSelector((state: RootStateOrAny) => state.auth.userName);
   const dispatch = useDispatch();
-  const [movieInput, setMovieInput] = useState("");
+  const [movieInput, setMovieInput] = useState<string>("");
 
   const searchMovie = useCallback(
-    (e) => {
+    (e: any) => {
       if (e.key === "Enter") {
         history.push({
           pathname: "/movies",
@@ -21,7 +21,7 @@ export default function Navbar() {
         });
       }
     },
-    [movieInput]
+    [movieInput],
   );
 
   const logout = useCallback(() => {
@@ -36,7 +36,13 @@ export default function Navbar() {
       <Link className="navbar__logo" to="/">
         Moviestagram
       </Link>
-      <input onChange={(e) => setMovieInput(e.target.value)} onKeyPress={searchMovie} className="navbar__search" type="text" placeholder="영화검색" />
+      <input
+        onChange={(e) => setMovieInput(e.target.value)}
+        onKeyPress={searchMovie}
+        className="navbar__search"
+        type="text"
+        placeholder="영화검색"
+      />
       <ul className="navbar__menu">
         <li className="menu">
           <Link to="/">

@@ -10,12 +10,19 @@ import User from "../../pages/User";
 import MovieDetail from "../../pages/MovieDetail";
 import Writing from "../../pages/Writing";
 import Review from "../../pages/Review";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
+
+interface LocationState {
+  from: {
+    pathname: string;
+  };
+  background: string;
+}
 
 export default function Main() {
-  const location = useLocation();
+  const location = useLocation<LocationState>();
   const background = location.state && location.state.background;
-  const userName = useSelector((state) => state.auth.userName);
+  const userName = useSelector((state: RootStateOrAny) => state.auth.userName);
 
   return (
     <div id="main">
