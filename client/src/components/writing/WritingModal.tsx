@@ -1,20 +1,33 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./WritingModal.css";
 
-export default function WritingModal({ movieId, movieName }) {
-  const history = useHistory();
-  const userName = useSelector((state) => state.auth.userId);
-  const [hashtag, setHashtag] = useState("");
-  const [description, setDescription] = useState("");
-  const [photo, setPhoto] = useState(null);
-  const [rate, setRate] = useState(0);
-  const [onDisplayRate, setOnDisplayRate] = useState(0);
-  const [filledWidth, setFilledWidth] = useState(0);
+interface Image {
+  file: any;
+  previewURL: string;
+}
 
-  const widthToRate = {
+interface Movie {
+  movieId: number;
+  movieName: string;
+}
+
+export default function WritingModal({ movieId, movieName }: Movie) {
+  const history = useHistory();
+  const userName = useSelector((state: RootStateOrAny) => state.auth.userId);
+  const [hashtag, setHashtag] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [photo, setPhoto] = useState<Image>({
+    file: "",
+    previewURL: "",
+  });
+  const [rate, setRate] = useState<number>(0);
+  const [onDisplayRate, setOnDisplayRate] = useState<number>(0);
+  const [filledWidth, setFilledWidth] = useState<number>(0);
+
+  const widthToRate: { [index: string]: number } = {
     18: 0.5,
     36: 1.0,
     54: 1.5,
@@ -27,7 +40,7 @@ export default function WritingModal({ movieId, movieName }) {
     180: 5,
   };
 
-  const rateToWidth = {
+  const rateToWidth: { [index: string]: number } = {
     0: 0,
     0.5: 18,
     1: 36,
@@ -41,7 +54,7 @@ export default function WritingModal({ movieId, movieName }) {
     5: 180,
   };
 
-  const previewImage = (e) => {
+  const previewImage = (e: any) => {
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -69,11 +82,11 @@ export default function WritingModal({ movieId, movieName }) {
     return (
       <div className="writingmodal__left-upload">
         <div className="review__image">
-          <img src={[photo.previewURL]} alt="" />
+          <img src={photo?.previewURL ?? ""} alt="" />
         </div>
         <div className="review__btn">
           <label htmlFor="input-file" className="btn__reselect">
-            <i class="fas fa-exchange-alt"></i>
+            <i className="fas fa-exchange-alt"></i>
           </label>
           <input onChange={previewImage} id="input-file" type="file" className="left__image" />
         </div>
@@ -82,7 +95,7 @@ export default function WritingModal({ movieId, movieName }) {
   };
 
   // 평점
-  const onMoveRate = (event) => {
+  const onMoveRate = (event: any) => {
     const offsetX = event.nativeEvent.offsetX;
 
     if (offsetX <= 18) {
@@ -126,7 +139,7 @@ export default function WritingModal({ movieId, movieName }) {
     const formData = new FormData();
     formData.append("userName", userName);
     formData.append("description", description);
-    formData.append("photo", photo.file);
+    formData.append("photo", photo?.file);
     formData.append("hashtags", hashtags);
     formData.append("movieId", movieId);
     formData.append("movieName", movieName);

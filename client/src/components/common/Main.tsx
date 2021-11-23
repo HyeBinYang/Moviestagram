@@ -12,15 +12,8 @@ import Writing from "../../pages/Writing";
 import Review from "../../pages/Review";
 import { RootStateOrAny, useSelector } from "react-redux";
 
-interface LocationState {
-  from: {
-    pathname: string;
-  };
-  background: string;
-}
-
 export default function Main() {
-  const location = useLocation<LocationState>();
+  const location = useLocation<any>();
   const background = location.state && location.state.background;
   const userName = useSelector((state: RootStateOrAny) => state.auth.userName);
 

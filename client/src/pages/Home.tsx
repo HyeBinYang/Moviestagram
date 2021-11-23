@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./styles/Home.css";
+import { Movie, Review } from "../models/model";
 
 // Component
 import LeftSide from "../components/home/leftside/LeftSide";
@@ -8,9 +9,9 @@ import RightSide from "../components/home/rightside/RightSide";
 import Spinner from "../components/common/Spinner";
 
 export default function Home() {
-  const [spinner, setSpinner] = useState(true);
-  const [recommandedMovies, setRecommandedMovies] = useState([]);
-  const [newReviews, setNewReviews] = useState([]);
+  const [spinner, setSpinner] = useState<boolean>(true);
+  const [recommandedMovies, setRecommandedMovies] = useState<Movie[]>([]);
+  const [newReviews, setNewReviews] = useState<Review[]>([]);
 
   useEffect(() => {
     const getRecommendedMovies = async () => {

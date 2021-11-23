@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import WritingModal from "../components/writing/WritingModal";
 import Shadow from "../components/common/Shadow";
 
-export default function Writing({ location }) {
+export default function Writing({ location }: any) {
   useEffect(() => {
     document.body.className = "non-scroll";
     return () => {

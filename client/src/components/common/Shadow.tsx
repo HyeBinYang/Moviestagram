@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 export default function Shadow() {
   const history = useHistory();
 
-  const goBack = useCallback((e) => {
+  const goBack = useCallback((e: any) => {
     history.goBack();
     e.stopPropagation();
   }, []);

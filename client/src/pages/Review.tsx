@@ -3,10 +3,11 @@ import axios from "axios";
 import ReviewModal from "../components/review/ReviewModal";
 import Shadow from "../components/common/Shadow";
 import { useLocation } from "react-router-dom";
+import { Review as MovieReview } from "../models/model";
 
 export default function Review() {
   const location = useLocation();
-  const [movieReview, setMovieReview] = useState(null);
+  const [movieReview, setMovieReview] = useState<MovieReview>();
 
   useEffect(() => {
     const postId = location.state.postId;
