@@ -1,35 +1,30 @@
-import React, { useCallback, useReducer } from "react";
+import React, { useCallback, useState } from "react";
 import axios from "axios";
 import "./LoginForm.css";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../modules/auth";
 
-function reducer(state, action) {
-  return {
-    ...state,
-    [action.name]: action.value,
-  };
+interface LoginForm {
+  userName: string;
+  password: string;
 }
-
-const initialLoginFormState = {
-  userName: "",
-  password: "",
-};
 
 export default function LoginForm() {
   const authDispatch = useDispatch();
-  const [loginFormState, dispatch] = useReducer(reducer, initialLoginFormState);
-  const { userName, password } = loginFormState;
+  const [loginForm, setLoginForm] = useState<LoginForm>({
+    userName: "",
+    password: "",
+  });
 
-  const onChangeInput = useCallback((e) => dispatch(e.target), []);
+  const onChangeInput = useCallback((e: any) => setLoginForm({ [e.target.name]: e.target.value }), []);
 
   const onLogin = useCallback(() => {
     axios
-      .post("/auth/login", loginFormState)
+      .post("/auth/login", loginForm)
       .then(onLoginSuccess)
       .catch((err) => console.log(err));
-  }, [loginFormState]);
+  }, [loginForm]);
 
   const onSilentRefresh = useCallback(() => {
     axios
@@ -49,8 +44,22 @@ export default function LoginForm() {
   return (
     <div id="loginform">
       <h1 className="loginform__title">Moviestagram</h1>
-      <input onChange={onChangeInput} className="loginform__id" type="text" placeholder="아이디" name="userName" value={userName} />
-      <input onChange={onChangeInput} className="loginform__password" type="password" placeholder="비밀번호" name="password" value={password} />
+      <input
+        onChange={onChangeInput}
+        className="loginform__id"
+        type="text"
+        placeholder="아이디"
+        name="userName"
+        value={loginForm.userName}
+      />
+      <input
+        onChange={onChangeInput}
+        className="loginform__password"
+        type="password"
+        placeholder="비밀번호"
+        name="password"
+        value={loginForm.password}
+      />
       <button onClick={onLogin} className="loginform__btn">
         로그인
       </button>

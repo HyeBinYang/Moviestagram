@@ -1,8 +1,13 @@
 import React from "react";
 import "./MoviePoster.css";
 import { Link } from "react-router-dom";
+import { Movie } from "../../models/model";
 
-export default function MoviePoster({ movie }) {
+interface MovieProps {
+  movie: Movie;
+}
+
+export default function MoviePoster({ movie }: MovieProps) {
   return (
     <Link
       to={{

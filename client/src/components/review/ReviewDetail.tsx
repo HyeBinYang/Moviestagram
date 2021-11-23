@@ -1,14 +1,21 @@
 import React, { useMemo } from "react";
 import "./ReviewDetail.css";
 import { Link, useLocation } from "react-router-dom";
+import { Movie, Review, Actors, Cast } from "../../models/model";
 
-const getRateAverage = (movieReviews) => {
+interface MovieDetail {
+  movie: Movie;
+  actors: Actors;
+  movieReviews: Review[];
+}
+
+const getRateAverage = (movieReviews: Review[]) => {
   let sum = 0;
   movieReviews.forEach((review) => (sum += review.rate));
   return Math.round((sum / movieReviews.length) * 100) / 100 || 0;
 };
 
-export default function ReviewDetail({ movie, actors, movieReviews }) {
+export default function ReviewDetail({ movie, actors, movieReviews }: MovieDetail) {
   const location = useLocation();
   const rateAverage = useMemo(() => getRateAverage(movieReviews), []);
 
@@ -26,7 +33,7 @@ export default function ReviewDetail({ movie, actors, movieReviews }) {
                 <span>개요</span>
               </dt>
               <dd>
-                {movie.genres.map((genre, index) => (
+                {movie.genres.map((genre, index: number) => (
                   <span key={index}>{genre.name} </span>
                 ))}
                 <span className="seperator"></span>
@@ -75,7 +82,7 @@ export default function ReviewDetail({ movie, actors, movieReviews }) {
       <div className="reviewdetail__performer">
         <h1>주요 출연진</h1>
         <div className="performers">
-          {actors.map((actor, index) => {
+          {actors.map((actor: Cast, index: number) => {
             return (
               <div className="performers__info" key={index}>
                 <img src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`} alt="director" />

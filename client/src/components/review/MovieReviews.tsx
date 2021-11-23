@@ -3,8 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import "./MovieReviews.css";
 
 import Review from "../common/Review";
+import { Review as R } from "../../models/model";
 
-export default function Reviews({ movieReviews }) {
+interface MovieReviews {
+  movieReviews: R[];
+}
+
+export default function Reviews({ movieReviews }: MovieReviews) {
   const location = useLocation();
 
   return (
@@ -18,7 +23,7 @@ export default function Reviews({ movieReviews }) {
             }}
             key={movieReview.id}
           >
-            <Review movieReview={movieReview} />
+            <Review image={movieReview.image} />
           </Link>
         );
       })}

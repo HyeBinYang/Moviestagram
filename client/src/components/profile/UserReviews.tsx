@@ -2,8 +2,13 @@ import React from "react";
 import "./UserReviews.css";
 import Review from "../common/Review";
 import { Link, useLocation } from "react-router-dom";
+import { Review as UserReview } from "../../models/model";
 
-export default function UserReviews({ userReviews }) {
+interface UserReviews {
+  userReviews: UserReview[];
+}
+
+export default function UserReviews({ userReviews }: UserReviews) {
   const location = useLocation();
 
   return (
@@ -17,7 +22,7 @@ export default function UserReviews({ userReviews }) {
             }}
             key={userReview.id}
           >
-            <Review movieReview={userReview} />
+            <Review image={userReview.image} />
           </Link>
         );
       })}

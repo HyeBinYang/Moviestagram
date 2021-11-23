@@ -1,7 +1,13 @@
 import React from "react";
 import "./UserInfo.css";
+import { Review } from "../../models/model";
 
-export default function UserInfo({ userReviews, userName }) {
+interface UserInfo {
+  userReviews: Review[];
+  userName: string;
+}
+
+export default function UserInfo({ userReviews, userName }: UserInfo) {
   return (
     <div id="userinfo">
       <div className="userinfo__image">

@@ -1,3 +1,8 @@
+export interface User {
+  id?: number;
+  username: string;
+}
+
 export interface Movie {
   adult: boolean;
   backdrop_path: string;
@@ -21,13 +26,13 @@ export interface commentLikeUser {
 }
 
 export interface Comment {
-  commentLikeUsers: commentLikeUser[];
+  commentLikeUsers?: commentLikeUser[];
   content: string;
-  created: string;
-  id: number;
-  updated: string;
-  user_id: number;
-  username: string;
+  created?: string;
+  id?: number;
+  updated?: string;
+  user_id?: number;
+  userName: string;
 }
 
 export interface Hashtag {

@@ -1,20 +1,21 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./ReviewModal.css";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 import ReviewComment from "./ReviewComment";
+import { Comment, Hashtag, Review, User } from "../../models/model";
 
-const getCreated = (created) => {
-  const now = new Date();
-  const createdDate = new Date(created);
+const getCreated = (created: string) => {
+  const now: Date = new Date();
+  const createdDate: Date = new Date(created);
 
-  const secDiff = (now.getTime() - createdDate.getTime()) / 1000;
-  const minDiff = secDiff / 60;
-  const hourDiff = minDiff / 60;
-  const dayDiff = hourDiff / 24;
-  const monthDiff = dayDiff / 30;
-  const yearDiff = monthDiff / 12;
+  const secDiff: number = (now.getTime() - createdDate.getTime()) / 1000;
+  const minDiff: number = secDiff / 60;
+  const hourDiff: number = minDiff / 60;
+  const dayDiff: number = hourDiff / 24;
+  const monthDiff: number = dayDiff / 30;
+  const yearDiff: number = monthDiff / 12;
 
   if (yearDiff >= 1) {
     return `${parseInt(yearDiff)}년 전`;
@@ -43,8 +44,8 @@ const getCreated = (created) => {
   }
 };
 
-const setRate = (rate) => {
-  const rateToIcon = {
+const setRate = (rate: number) => {
+  const rateToIcon: { [index: string]: ReactElement } = {
     0.5: <></>,
     1: (
       <>
@@ -116,22 +117,25 @@ const setRate = (rate) => {
   return rateToIcon[rate];
 };
 
-export default function ReviewModal({ movieReview }) {
+interface MovieReview {
+  movieReview: Review;
+}
+
+export default function ReviewModal({ movieReview }: MovieReview) {
   const history = useHistory();
-  const userName = useSelector((state) => state.auth.userName);
+  const userName: string = useSelector((state: RootStateOrAny) => state.auth.userName);
 
   // State
-  const [commentText, setCommentText] = useState();
-  const [commentForm, setCommentForm] = useState({
+  const [commentForm, setCommentForm] = useState<Comment>({
     content: "",
     userName: userName,
   });
-  const [comments, setComments] = useState([]);
-  const [likeToggle, setLikeToggle] = useState(false);
-  const [postLikeCount, setPostLikeCount] = useState(0);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [likeToggle, setLikeToggle] = useState<boolean>(false);
+  const [postLikeCount, setPostLikeCount] = useState<number>(0);
 
   useEffect(() => {
-    if (movieReview.postLikeUsers.filter((user) => user.username === userName).length) setLikeToggle(true);
+    if (movieReview.postLikeUsers.filter((user: User) => user.username === userName).length) setLikeToggle(true);
     setPostLikeCount(movieReview.postLikeUsers.length);
     setComments([...movieReview.comments]);
   }, []);
@@ -148,7 +152,7 @@ export default function ReviewModal({ movieReview }) {
       .catch((err) => console.log(err));
   }, [userName, likeToggle, postLikeCount]);
 
-  const writeComment = useCallback((e) => {
+  const writeComment = useCallback((e: any) => {
     setCommentForm({
       ...commentForm,
       [e.target.name]: e.target.value,
@@ -210,7 +214,7 @@ export default function ReviewModal({ movieReview }) {
         </div>
         <div className="info__movie">
           <Link to={`/movie/${movieReview.movie_id}/reviews`}>#{`${movieReview.movie_name}`} </Link>
-          {movieReview.hashtags.map((hashtag) => (
+          {movieReview.hashtags.map((hashtag: Hashtag) => (
             <Link to={`/movie/${movieReview.movieId}/reviews`} key={hashtag.id}>
               {`${hashtag.name}`}{" "}
             </Link>
@@ -225,7 +229,7 @@ export default function ReviewModal({ movieReview }) {
         </div>
         <div className="home-review__icon">
           {likeToggle ? (
-            <i onClick={onHandleLike} class="fas fa-heart" style={{ color: "red" }}></i>
+            <i onClick={onHandleLike} className="fas fa-heart" style={{ color: "red" }}></i>
           ) : (
             <i onClick={onHandleLike} className="far fa-heart"></i>
           )}

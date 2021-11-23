@@ -1,8 +1,13 @@
 import React from "react";
+import { Movie } from "../../models/model";
 import "./MovieList.css";
 import MoviePoster from "./MoviePoster";
 
-export default function MovieList({ movieList }) {
+interface MovieListProps {
+  movieList: Movie[];
+}
+
+export default function MovieList({ movieList }: MovieListProps) {
   return (
     <div id="movielist">
       {movieList.map((movie, index) => {
