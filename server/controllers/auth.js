@@ -39,9 +39,7 @@ const controller = {
     const { userName, password } = req.body;
 
     // 아이디가 존재하는지 DB에서 찾기
-    const query = "SELECT * FROM user WHERE username=?";
-
-    await connection.query(query, [userName], (err, rows) => {
+    await connection.query(`SELECT * FROM user WHERE username=?`, [userName], (err, rows) => {
       if (err) console.log(err);
       else {
         if (!rows.length) {
@@ -85,7 +83,6 @@ const controller = {
     const accessToken = req.headers.token;
     const refreshToken = req.cookies.refreshToken;
 
-    console.log(accessToken, refreshToken);
     // Accesstoken 이 없을 때
     if (!accessToken || accessToken === "undefined") {
       // Refreshtoken 도 없으면 401 에러로 응답하기

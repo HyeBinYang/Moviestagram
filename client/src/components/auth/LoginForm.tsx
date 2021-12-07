@@ -18,7 +18,12 @@ export default function LoginForm() {
   });
   const [loginError, setLoginError] = useState(false);
 
-  const onChangeInput = useCallback((e: any) => setLoginForm({ [e.target.name]: e.target.value }), []);
+  const onChangeInput = useCallback(
+    (e) => {
+      setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
+    },
+    [loginForm],
+  );
 
   const onLogin = useCallback(() => {
     axios

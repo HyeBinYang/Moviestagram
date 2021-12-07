@@ -20,7 +20,7 @@ export default function SignupForm() {
     passwordConfirm: "",
   });
 
-  const onChangeInput = useCallback((e: any) => setSignupForm({ [e.target.name]: e.target.value }), []);
+  const onChangeInput = useCallback((e: any) => setSignupForm({ ...signupForm, [e.target.name]: e.target.value }), []);
 
   const register = useCallback(() => {
     axios
