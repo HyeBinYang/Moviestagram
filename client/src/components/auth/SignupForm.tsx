@@ -20,18 +20,45 @@ export default function SignupForm() {
     passwordConfirm: "",
   });
 
-  const onChangeInput = useCallback((e: any) => setSignupForm({ ...signupForm, [e.target.name]: e.target.value }), []);
+  const [emptyIdError, setEmptyIdError] = useState(false);
+  const [emptyEmailError, setEmptyEmailError] = useState(false);
+  const [emptyPasswordError, setEmptyPasswordError] = useState(false);
+  const [emptyPasswordConfirmError, setEmptyPasswordConfirmError] = useState(false);
+
+  const onChangeInput = useCallback(
+    (e) => setSignupForm({ ...signupForm, [e.target.name]: e.target.value }),
+    [signupForm],
+  );
+
+  const clearmsg = useCallback(() => {
+    setEmptyIdError(false);
+    setEmptyEmailError(false);
+    setEmptyPasswordError(false);
+    setEmptyPasswordConfirmError(false);
+  }, []);
 
   const register = useCallback(() => {
-    axios
-      .post("/auth/register", signupForm)
-      .then(() => history.push("/"))
-      .catch((err) => {
-        // 이미 존재하는 아이디
-        // 패스워드 불일치 등등 처리
-        console.log(err);
-      });
-  }, []);
+    clearmsg();
+
+    if (!signupForm.userName) {
+      setEmptyIdError(true);
+    } else if (!signupForm.email) {
+      setEmptyEmailError(true);
+    } else if (!signupForm.password) {
+      setEmptyPasswordError(true);
+    } else if (!signupForm.passwordConfirm) {
+      setEmptyPasswordConfirmError(true);
+    } else {
+      axios
+        .post("/auth/register", signupForm)
+        .then(() => history.push("/"))
+        .catch((err) => {
+          // 이미 존재하는 아이디
+          // 패스워드 불일치 등등 처리
+          console.log(err);
+        });
+    }
+  }, [signupForm]);
 
   return (
     <div id="signupform">
@@ -44,14 +71,16 @@ export default function SignupForm() {
         name="userName"
         value={signupForm.userName}
       />
+      {emptyIdError ? <p className="signupForm__errormsg">아이디를 입력해주세요.</p> : null}
       <input
         onChange={onChangeInput}
         className="signupform__email"
         type="text"
-        placeholder="이메일 또는 휴대전화번호"
+        placeholder="이메일"
         name="email"
         value={signupForm.email}
       />
+      {emptyEmailError ? <p className="signupForm__errormsg">이메일을 입력해주세요.</p> : null}
       <input
         onChange={onChangeInput}
         className="signupform__password"
@@ -60,6 +89,8 @@ export default function SignupForm() {
         name="password"
         value={signupForm.password}
       />
+      {emptyPasswordError ? <p className="signupForm__errormsg">비밀번호를 입력해주세요.</p> : null}
+
       <input
         onChange={onChangeInput}
         className="signupform__password"
@@ -68,6 +99,7 @@ export default function SignupForm() {
         name="passwordConfirm"
         value={signupForm.passwordConfirm}
       />
+      {emptyPasswordConfirmError ? <p className="signupForm__errormsg">비밀번호 확인을 입력해주세요.</p> : null}
       <button onClick={register} className="signupform__btn">
         회원가입
       </button>

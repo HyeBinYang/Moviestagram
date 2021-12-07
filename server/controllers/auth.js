@@ -21,13 +21,17 @@ const controller = {
         bcrypt.hash(password, salt, (err, hashedPassword) => {
           if (err) return next(err);
           password = hashedPassword;
-          const query = "INSERT INTO user (username, email, password, salt) VALUES (?, ?, ?, ?)";
-          const params = [userName, email, password, salt];
 
-          connection.query(query, params, (err) => {
-            if (err) console.log(err);
-            else res.json("success");
-          });
+          connection.query(
+            `INSERT 
+            INTO user (username, email, password, salt) 
+            VALUES (?, ?, ?, ?)`,
+            [userName, email, password, salt],
+            (err) => {
+              if (err) console.log(err);
+              else res.json("success");
+            }
+          );
         });
       });
     } catch (err) {

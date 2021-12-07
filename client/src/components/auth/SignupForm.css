@@ -84,3 +84,10 @@
 .signupform__signup > a:hover {
   text-decoration: underline;
 }
+
+.signupForm__errormsg {
+  width: 100%;
+  margin-top: 0;
+  color: #f62828;
+  font-size: 14px;
+}
