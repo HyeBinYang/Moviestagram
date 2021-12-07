@@ -73,7 +73,9 @@ export default function LoginForm() {
       <div className="loginform__signup">
         계정이 없으신가요? <Link to="/signup">가입하기</Link>
       </div>
-      <Link to="/auth/find">계정을 까먹으셨나요?</Link>
+      <div className="loginForm__findlink">
+        <Link to="/auth/find">계정을 잊으셨나요?</Link>
+      </div>
     </div>
   );
 }

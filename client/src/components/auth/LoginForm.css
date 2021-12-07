@@ -1,4 +1,4 @@
-@import url("../../css/common.css");
+@import url("../../style/common.css");
 
 #loginform {
   background-color: #ffffff;
@@ -85,5 +85,16 @@
 }
 
 .loginform__signup > a:hover {
+  text-decoration: underline;
+}
+
+.loginForm__findlink > a {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: #00376b;
+}
+
+.loginForm__findlink > a:hover {
   text-decoration: underline;
 }

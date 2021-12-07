@@ -1,4 +1,4 @@
-@import url("../../css/common.css");
+@import url("../../style/common.css");
 
 #authForm {
   background-color: #ffffff;
@@ -20,43 +20,26 @@
   font-weight: bold;
 }
 
-.authForm__email {
+.authForm__input {
   width: 100%;
   padding: 10px;
   font-size: 18px;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.authForm__email:focus {
+.authForm__input:focus {
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0);
   box-shadow: 0 0 2px 4px #90caf9;
 }
 
-.authForm__email::placeholder {
+.authForm__input::placeholder {
   font-size: 13px;
 }
 
-.loginform__password {
+.authForm__errormsg {
   width: 100%;
-  padding: 10px;
-  font-size: 18px;
-  margin: 18px 0;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-.loginform__password:focus {
-  outline: none;
-  border: 1px solid rgba(0, 0, 0, 0);
-  box-shadow: 0 0 2px 4px #90caf9;
-}
-
-.loginform__password::placeholder {
-  font-size: 13px;
-}
-
-.loginform__errormsg {
   margin-top: 0;
   color: #f62828;
   font-size: 14px;
@@ -75,16 +58,28 @@
   cursor: pointer;
 }
 
-.authForm__signup {
+.authForm__links {
   margin-bottom: 18px;
 }
 
-.authForm__signup > a {
+.authForm__links > a {
+  margin: 0 10px;
   text-decoration: none;
   font-weight: bold;
   color: #039be5;
 }
 
-.authForm__signup > a:hover {
+.authForm__links > a:hover {
+  text-decoration: underline;
+}
+
+.authForm__findlink > a {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: #00376b;
+}
+
+.authForm__findlink > a:hover {
   text-decoration: underline;
 }
