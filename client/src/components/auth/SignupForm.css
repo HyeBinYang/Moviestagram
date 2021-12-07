@@ -24,7 +24,7 @@
   width: 100%;
   padding: 10px;
   font-size: 18px;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
@@ -34,11 +34,15 @@
   box-shadow: 0 0 2px 4px #90caf9;
 }
 
+.signupform__id::placeholder {
+  font-size: 13px;
+}
+
 .signupform__email {
   width: 100%;
   padding: 10px;
   font-size: 18px;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
@@ -48,11 +52,15 @@
   box-shadow: 0 0 2px 4px #90caf9;
 }
 
+.signupform__email::placeholder {
+  font-size: 13px;
+}
+
 .signupform__password {
   width: 100%;
   padding: 10px;
   font-size: 18px;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
@@ -60,6 +68,10 @@
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0);
   box-shadow: 0 0 2px 4px #90caf9;
+}
+
+.signupform__password::placeholder {
+  font-size: 13px;
 }
 
 .signupform__btn {

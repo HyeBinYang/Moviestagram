@@ -88,7 +88,6 @@ module.exports = {
 
     try {
       const { userName } = req.params;
-      console.log(userName);
 
       connection.beginTransaction();
 
@@ -316,16 +315,19 @@ module.exports = {
       const userId = user[0].id;
 
       // review 저장 (insert)
-      await connection.query("INSERT INTO post (description, image, movie_id, movie_name, rate, user_id, created, updated) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [
-        description,
-        req.file.filename,
-        movieId,
-        movieName,
-        rate,
-        userId,
-        moment().format("YYYY-MM-DD HH:mm:ss"),
-        moment().format("YYYY-MM-DD HH:mm:ss"),
-      ]);
+      await connection.query(
+        "INSERT INTO post (description, image, movie_id, movie_name, rate, user_id, created, updated) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+          description,
+          req.file.filename,
+          movieId,
+          movieName,
+          rate,
+          userId,
+          moment().format("YYYY-MM-DD HH:mm:ss"),
+          moment().format("YYYY-MM-DD HH:mm:ss"),
+        ]
+      );
 
       const [result] = await connection.query("SELECT id FROM post ORDER BY id DESC LIMIT 1");
       postId = result[0].id;
@@ -467,7 +469,10 @@ module.exports = {
       const userId = user[0].id;
 
       // post_like_user 테이블에서 data 유무확인
-      const [like] = await connection.query("SELECT * FROM post_like_user WHERE post_id=? AND user_id=?", [postId, userId]);
+      const [like] = await connection.query("SELECT * FROM post_like_user WHERE post_id=? AND user_id=?", [
+        postId,
+        userId,
+      ]);
 
       if (!like.length) {
         // 좋아요

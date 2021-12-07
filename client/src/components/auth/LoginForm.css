@@ -33,6 +33,10 @@
   box-shadow: 0 0 2px 4px #90caf9;
 }
 
+.loginform__id::placeholder {
+  font-size: 13px;
+}
+
 .loginform__password {
   width: 100%;
   padding: 10px;
@@ -45,6 +49,10 @@
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0);
   box-shadow: 0 0 2px 4px #90caf9;
+}
+
+.loginform__password::placeholder {
+  font-size: 13px;
 }
 
 .loginform__errormsg {

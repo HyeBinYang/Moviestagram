@@ -16,6 +16,30 @@ const controller = {
     try {
       let { userName, email, password, passwordConfirm } = req.body;
 
+      connection.beginTransaction();
+
+      // let [user] = await connection.query(
+      //   `SELECT
+      //   *
+      //   FROM user
+      //   WHERE username = ?`,
+      //   [userName],
+      //   (err) => {
+      //     if (err) res.json(err);
+      //   }
+      // );
+
+      // user = await connection.query(
+      //   `SELECT
+      //   *
+      //   FROM user
+      //   WHERE email = ?`,
+      //   [email],
+      //   (err) => {
+      //     if (err) res.json(err);
+      //   }
+      // );
+
       bcrypt.genSalt(saltCount, async (err, salt) => {
         if (err) return next(err);
         bcrypt.hash(password, salt, (err, hashedPassword) => {
@@ -28,14 +52,19 @@ const controller = {
             VALUES (?, ?, ?, ?)`,
             [userName, email, password, salt],
             (err) => {
-              if (err) console.log(err);
-              else res.json("success");
+              if (err) {
+                console.log(err.message);
+                res.status(500).json({ code: 500, message: err.message });
+              } else res.json("success");
             }
           );
         });
       });
+
+      connection.commit();
     } catch (err) {
       next(err);
+      connection.rollback();
     }
   },
   async login(req, res, next) {
