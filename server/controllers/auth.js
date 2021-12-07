@@ -18,35 +18,13 @@ const controller = {
 
       connection.beginTransaction();
 
-      // let [user] = await connection.query(
-      //   `SELECT
-      //   *
-      //   FROM user
-      //   WHERE username = ?`,
-      //   [userName],
-      //   (err) => {
-      //     if (err) res.json(err);
-      //   }
-      // );
-
-      // user = await connection.query(
-      //   `SELECT
-      //   *
-      //   FROM user
-      //   WHERE email = ?`,
-      //   [email],
-      //   (err) => {
-      //     if (err) res.json(err);
-      //   }
-      // );
-
       bcrypt.genSalt(saltCount, async (err, salt) => {
         if (err) return next(err);
         bcrypt.hash(password, salt, (err, hashedPassword) => {
           if (err) return next(err);
           password = hashedPassword;
 
-          connection.query(
+          await connection.query(
             `INSERT 
             INTO user (username, email, password, salt) 
             VALUES (?, ?, ?, ?)`,

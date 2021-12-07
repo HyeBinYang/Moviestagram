@@ -10,6 +10,7 @@ import User from "../../pages/User";
 import MovieDetail from "../../pages/MovieDetail";
 import Writing from "../../pages/Writing";
 import Review from "../../pages/Review";
+import FindAuth from "../../pages/FindAuth";
 import { RootStateOrAny, useSelector } from "react-redux";
 
 export default function Main() {
@@ -23,6 +24,7 @@ export default function Main() {
         {!userName ? <Route exact path="/" component={Login} /> : <Route exact path="/" component={Home} />}
         <Route path="/write" component={Writing} />
         <Route path="/signup" component={Signup} />
+        <Route path="/auth/find" component={FindAuth} />
         <Route path="/movies" component={Movies} />
         <Route path="/user/:user_id" component={User} />
         <Route path="/movie/:movie_id/reviews" component={MovieDetail}></Route>
