@@ -47,6 +47,12 @@
   box-shadow: 0 0 2px 4px #90caf9;
 }
 
+.loginform__errormsg {
+  margin-top: 0;
+  color: #f62828;
+  font-size: 14px;
+}
+
 .loginform__btn {
   width: 100%;
   height: 40px;

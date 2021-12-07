@@ -16,6 +16,7 @@ export default function LoginForm() {
     userName: "",
     password: "",
   });
+  const [loginError, setLoginError] = useState(false);
 
   const onChangeInput = useCallback((e: any) => setLoginForm({ [e.target.name]: e.target.value }), []);
 
@@ -23,7 +24,7 @@ export default function LoginForm() {
     axios
       .post("/auth/login", loginForm)
       .then(onLoginSuccess)
-      .catch((err) => console.log(err));
+      .catch((err) => setLoginError(true));
   }, [loginForm]);
 
   const onSilentRefresh = useCallback(() => {
@@ -60,6 +61,7 @@ export default function LoginForm() {
         name="password"
         value={loginForm.password}
       />
+      {loginError ? <p className="loginform__errormsg">아이디 또는 비밀번호가 틀렸습니다.</p> : null}
       <button onClick={onLogin} className="loginform__btn">
         로그인
       </button>
