@@ -109,7 +109,7 @@ const controller = {
 
       if (user.length > 0) {
         await mailAPI(email, user[0].username);
-        res.status(200).json({ status: 200, message: "success" });
+        res.status(200).json({ status: 200, message: "Success" });
       } else {
         res.status(404).json({ status: 404, message: "Can not find the email" });
       }
@@ -121,7 +121,73 @@ const controller = {
     }
   },
 
-  async resetPassword(req, res, next) {},
+  async checkUsername(req, res, next) {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "1234",
+      database: "moviestagram",
+    });
+
+    try {
+      const { username } = req.body;
+
+      connection.beginTransaction();
+
+      const [user] = await connection.query(
+        `SELECT
+        *
+        FROM user
+        WHERE username=?`,
+        [username]
+      );
+
+      if (user.length > 0) {
+        res.status(200).json({ status: 200, message: "Success" });
+      } else {
+        res.status(404).json({ status: 404, message: "Can not find the username" });
+      }
+    } catch (err) {
+      console.log(err);
+      connection.rollback();
+    }
+  },
+
+  async resetPassword(req, res, next) {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "1234",
+      database: "moviestagram",
+    });
+
+    try {
+      let { username, password } = req.body;
+      connection.beginTransaction();
+
+      bcrypt.genSalt(saltCount, async (err, salt) => {
+        if (err) return next(err);
+        bcrypt.hash(password, salt, async (err, hashedPassword) => {
+          if (err) return next(err);
+          password = hashedPassword;
+
+          await connection.query(
+            `UPDATE user 
+            SET password=?, salt=? 
+            WHERE username=?`,
+            [password, salt, username]
+          );
+        });
+      });
+
+      res.status(200).json({ status: 200, message: "Updated success!" });
+      connection.commit();
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ status: 500, message: "Server error!" });
+      connection.rollback();
+    }
+  },
 
   async logout(req, res, next) {
     res.clearCookie("refreshToken");

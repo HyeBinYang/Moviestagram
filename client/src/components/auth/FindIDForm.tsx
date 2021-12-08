@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import "./styles/Auth.css";
+import "./FindIDForm.css";
 
-function FindAuth() {
+function FindIDForm() {
   const [email, setEmail] = useState("");
   const [emptyEmailError, setEmptyEmailError] = useState(false);
   const [emailValidationError, setEmailValidationError] = useState(false);
@@ -68,10 +68,10 @@ function FindAuth() {
         <Link to="/signup">가입하기</Link>
       </div>
       <div className="authForm__findlink">
-        <Link to="/auth/reset">비밀번호를 잊으셨나요?</Link>
+        <Link to="/auth/input/username">비밀번호를 잊으셨나요?</Link>
       </div>
     </div>
   );
 }
 
-export default FindAuth;
+export default FindIDForm;
