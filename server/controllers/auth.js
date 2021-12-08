@@ -3,17 +3,17 @@ const mysql = require("mysql2/promise");
 const bcrypt = require("bcrypt");
 const { mailAPI } = require("../apis/emailAPI");
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "1234",
-  database: "moviestagram",
-});
-
 const saltCount = 10;
 
 const controller = {
   async regiser(req, res, next) {
+    const connection = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "1234",
+      database: "moviestagram",
+    });
+
     try {
       let { userName, email, password, passwordConfirm } = req.body;
 
@@ -47,19 +47,26 @@ const controller = {
     }
   },
   async login(req, res, next) {
-    // 클라이언트에서 데이터 받아옴
-    const { userName, password } = req.body;
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "1234",
+      database: "moviestagram",
+    });
 
-    // 아이디가 존재하는지 DB에서 찾기
-    await connection.query(`SELECT * FROM user WHERE username=?`, [userName], (err, rows) => {
-      if (err) console.log(err);
-      else {
-        if (!rows.length) {
-          return next();
-        }
+    try {
+      // 클라이언트에서 데이터 받아옴
+      const { userName, password } = req.body;
+      console.log(userName, password);
 
-        const originPassword = rows[0].password;
-        const salt = rows[0].salt;
+      // 아이디가 존재하는지 DB에서 찾기
+      const [user] = await connection.query(`SELECT * FROM user WHERE username=?`, [userName]);
+
+      if (user.length === 0) {
+        return res.status(404).json({ status: 404, message: "Not found user" });
+      } else {
+        const originPassword = user[0].password;
+        const salt = user[0].salt;
 
         bcrypt.hash(password, salt, (err, hashedPassword) => {
           if (err || hashedPassword !== originPassword) return next(err);
@@ -83,7 +90,9 @@ const controller = {
           return res.status(200).json({ accessToken, userName });
         });
       }
-    });
+    } catch (err) {
+      return res.status(500).json({ status: 500, message: "Server error" });
+    }
   },
 
   async findUsername(req, res, next) {
