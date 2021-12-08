@@ -4,6 +4,8 @@ const user = require("../controllers/auth");
 
 router.post("/register", user.regiser);
 router.post("/login", user.login);
+router.post("/find/username", user.findUsername);
+router.post("/reset/password", user.resetPassword);
 router.post("/logout", user.logout);
 router.post("/token", user.checkToken);
 

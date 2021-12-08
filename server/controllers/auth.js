@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
-const mysql = require("mysql");
+const mysql = require("mysql2/promise");
 const bcrypt = require("bcrypt");
+const { mailAPI } = require("../apis/emailAPI");
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -20,7 +21,7 @@ const controller = {
 
       bcrypt.genSalt(saltCount, async (err, salt) => {
         if (err) return next(err);
-        bcrypt.hash(password, salt, (err, hashedPassword) => {
+        bcrypt.hash(password, salt, async (err, hashedPassword) => {
           if (err) return next(err);
           password = hashedPassword;
 
@@ -84,6 +85,43 @@ const controller = {
       }
     });
   },
+
+  async findUsername(req, res, next) {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "1234",
+      database: "moviestagram",
+    });
+
+    try {
+      const { email } = req.body;
+
+      connection.beginTransaction();
+
+      const [user] = await connection.query(
+        `SELECT
+        *
+        FROM user
+        WHERE email=?`,
+        [email]
+      );
+
+      if (user.length > 0) {
+        await mailAPI(email, user[0].username);
+        res.status(200).json({ status: 200, message: "success" });
+      } else {
+        res.status(404).json({ status: 404, message: "Can not find the email" });
+      }
+
+      connection.commit();
+    } catch (error) {
+      console.log(error);
+      connection.rollback();
+    }
+  },
+
+  async resetPassword(req, res, next) {},
 
   async logout(req, res, next) {
     res.clearCookie("refreshToken");

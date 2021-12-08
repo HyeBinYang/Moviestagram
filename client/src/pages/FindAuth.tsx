@@ -31,12 +31,15 @@ function FindAuth() {
     } else {
       // 해당 이메일이 존재하면 이메일로 아이디 보낸다.
       axios
-        .post("")
-        .then(() => {})
+        .post("/auth/find/username", { email: email })
+        .then(() => {
+          alert("가입된 이메일로 아이디를 보냈습니다.");
+        })
         .catch((err) => {
           const errorData = err.response.data;
+          console.log(errorData);
 
-          if (errorData.includes("email")) {
+          if (errorData.message && errorData.message.includes("email")) {
             setNotEmailDuplicationError(true);
           }
         });
