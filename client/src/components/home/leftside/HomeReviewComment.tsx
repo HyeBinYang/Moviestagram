@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function Comment({ reviewId, comments, comment, setComments, getCreated }) {
+function HomeReviewComment({ reviewId, comments, comment, setComments, getCreated }) {
   const userName = useSelector((state) => state.auth.userName);
   const [commentLikeToggle, setCommentLikeToggle] = useState(false);
   const [commentLikeCount, setCommentLikeCount] = useState(0);
@@ -67,3 +67,5 @@ export default function Comment({ reviewId, comments, comment, setComments, getC
     </div>
   );
 }
+
+export default React.memo(HomeReviewComment);
