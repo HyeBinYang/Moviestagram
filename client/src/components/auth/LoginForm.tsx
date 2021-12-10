@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import axios from "axios";
-import "./LoginForm.css";
+import "./AuthForm.css";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../modules/auth";
@@ -48,11 +48,11 @@ export default function LoginForm() {
   }, []);
 
   return (
-    <div id="loginform">
-      <h1 className="loginform__title">Moviestagram</h1>
+    <div id="authForm">
+      <h1 className="authForm__title">Moviestagram</h1>
       <input
         onChange={onChangeInput}
-        className="loginform__id"
+        className="authForm__input"
         type="text"
         placeholder="아이디"
         name="userName"
@@ -60,20 +60,20 @@ export default function LoginForm() {
       />
       <input
         onChange={onChangeInput}
-        className="loginform__password"
+        className="authForm__input"
         type="password"
         placeholder="비밀번호"
         name="password"
         value={loginForm.password}
       />
-      {loginError ? <p className="loginform__errormsg">아이디 또는 비밀번호가 틀렸습니다.</p> : null}
-      <button onClick={onLogin} className="loginform__btn">
+      {loginError ? <p className="authForm__errormsg">아이디 또는 비밀번호가 틀렸습니다.</p> : null}
+      <button onClick={onLogin} className="authForm__btn">
         로그인
       </button>
-      <div className="loginform__signup">
+      <div className="authForm__links">
         계정이 없으신가요? <Link to="/signup">가입하기</Link>
       </div>
-      <div className="loginForm__findlink">
+      <div className="authForm__findlink">
         <Link to="/auth/find/username">계정을 잊으셨나요?</Link>
       </div>
     </div>

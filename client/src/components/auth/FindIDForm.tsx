@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import "./FindIDForm.css";
+import "./AuthForm.css";
 
 function FindIDForm() {
   const [email, setEmail] = useState("");

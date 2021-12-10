@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import "./SignupForm.css";
+import "./AuthForm.css";
 import { Link } from "react-router-dom";
 
 interface SignupForm {
@@ -109,11 +109,11 @@ export default function SignupForm() {
   }, [signupForm]);
 
   return (
-    <div id="signupform">
+    <div id="authForm">
       <h1 className="signupform__title">Moviestagram</h1>
       <input
         onChange={onChangeInput}
-        className="signupform__id"
+        className="authForm__input"
         type="text"
         placeholder="아이디"
         name="userName"
@@ -124,7 +124,7 @@ export default function SignupForm() {
       {idDuplicationError ? <p className="signupForm__errormsg">이미 가입되어있는 아이디입니다.</p> : null}
       <input
         onChange={onChangeInput}
-        className="signupform__email"
+        className="authForm__input"
         type="text"
         placeholder="이메일"
         name="email"
@@ -135,7 +135,7 @@ export default function SignupForm() {
       {emailDuplicationError ? <p className="signupForm__errormsg">이미 가입되어있는 이메일입니다.</p> : null}
       <input
         onChange={onChangeInput}
-        className="signupform__password"
+        className="authForm__input"
         type="password"
         placeholder="비밀번호"
         name="password"
@@ -145,18 +145,18 @@ export default function SignupForm() {
       {passwordValidationError ? <p className="signupForm__errormsg">비밀번호가 유효하지 않습니다.</p> : null}
       <input
         onChange={onChangeInput}
-        className="signupform__password"
+        className="authForm__input"
         type="password"
         placeholder="비밀번호 확인"
         name="passwordConfirm"
         value={signupForm.passwordConfirm}
       />
-      {emptyPasswordConfirmError ? <p className="signupForm__errormsg">비밀번호 확인을 입력해주세요.</p> : null}
-      {passwordNotEqualError ? <p className="signupForm__errormsg">비밀번호를 동일하게 입력해주세요.</p> : null}
-      <button onClick={register} className="signupform__btn">
+      {emptyPasswordConfirmError ? <p className="authForm__errormsg">비밀번호 확인을 입력해주세요.</p> : null}
+      {passwordNotEqualError ? <p className="authForm__errormsg">비밀번호를 동일하게 입력해주세요.</p> : null}
+      <button onClick={register} className="authForm__btn">
         회원가입
       </button>
-      <div className="signupform__signup">
+      <div className="authForm__links">
         계정이 있으신가요? <Link to="/">로그인하러 가기</Link>
       </div>
     </div>

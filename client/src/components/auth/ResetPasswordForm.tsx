@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useCallback, useState } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
-import "./ResetPasswordForm.css";
+import "./AuthForm.css";
 
 function ResetPasswordForm() {
   const history = useHistory();

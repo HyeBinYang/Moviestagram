@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useCallback, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import "./FindIDForm.css";
+import "./AuthForm.css";
 
 function InputIDForm() {
   const history = useHistory();
