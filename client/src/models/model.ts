@@ -26,13 +26,12 @@ export interface commentLikeUser {
 }
 
 export interface Comment {
-  commentLikeUsers?: commentLikeUser[];
+  commentLikeUsers: commentLikeUser[];
   content: string;
   created?: string;
-  id?: number;
+  id: number;
   updated?: string;
-  user_id?: number;
-  userName: string;
+  username: string;
 }
 
 export interface Hashtag {
@@ -42,7 +41,7 @@ export interface Hashtag {
 
 export interface postLikeUser {
   id: number;
-  name: string;
+  username: string;
 }
 
 export interface Review {

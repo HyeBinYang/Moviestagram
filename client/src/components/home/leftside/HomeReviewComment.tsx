@@ -3,10 +3,19 @@ import "./Comment.css";
 import axios from "axios";
 
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
+import { Comment } from "../../../models/model";
 
-function HomeReviewComment({ reviewId, comments, comment, setComments, getCreated }) {
-  const userName = useSelector((state) => state.auth.userName);
+interface IProps {
+  reviewId: number;
+  comments: Comment[];
+  comment: Comment;
+  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
+  getCreated: (param: string | undefined) => string | undefined;
+}
+
+function HomeReviewComment({ reviewId, comments, comment, setComments, getCreated }: IProps) {
+  const userName = useSelector((state: RootStateOrAny) => state.auth.userName);
   const [commentLikeToggle, setCommentLikeToggle] = useState(false);
   const [commentLikeCount, setCommentLikeCount] = useState(0);
 

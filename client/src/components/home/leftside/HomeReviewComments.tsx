@@ -1,8 +1,16 @@
 import React, { useEffect } from "react";
 import HomeReviewComment from "./HomeReviewComment";
 import { Link, useLocation } from "react-router-dom";
+import { Review, Comment } from "../../../models/model";
 
-function HomeReviewComments({ review, getCreated, comments, setComments }) {
+interface IProps {
+  review: Review;
+  comments: Comment[];
+  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
+  getCreated: (param: string | undefined) => string | undefined;
+}
+
+function HomeReviewComments({ review, getCreated, comments, setComments }: IProps) {
   const location = useLocation();
 
   useEffect(() => {

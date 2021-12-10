@@ -1,11 +1,17 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
-import "./HomeReview.css";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 import axios from "axios";
+import { Review } from "../../../models/model";
 
-function HomeReviewDetail({ review, getCreated, setRate }) {
-  const userName = useSelector((state) => state.auth.userName);
+interface IProps {
+  review: Review;
+  getCreated: (param: string | undefined) => string | undefined;
+  setRate: (param: number) => JSX.Element;
+}
+
+function HomeReviewDetail({ review, getCreated, setRate }: IProps) {
+  const userName = useSelector((state: RootStateOrAny) => state.auth.userName);
 
   const [likeToggle, setLikeToggle] = useState(false);
   const [postLikeCount, setPostLikeCount] = useState(0);
@@ -89,7 +95,7 @@ function HomeReviewDetail({ review, getCreated, setRate }) {
         <div className="description__hashtag">
           <Link to={`/movie/${review.movie_id}/reviews`}>#{`${review.movie_name}`} </Link>
           {review.hashtags.map((hashtag) => (
-            <Link to={`/movie/${review.movieId}/reviews`} key={hashtag.id}>
+            <Link to={`/movie/${review.movie_id}/reviews`} key={hashtag.id}>
               {`${hashtag.name}`}{" "}
             </Link>
           ))}

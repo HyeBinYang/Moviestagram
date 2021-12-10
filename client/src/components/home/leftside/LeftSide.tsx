@@ -3,8 +3,13 @@ import "./LeftSide.css";
 
 // Component
 import HomeReview from "./HomeReview";
+import { Review } from "../../../models/model";
 
-export default function LeftSide({ newReviews }) {
+interface IProps {
+  newReviews: Review[];
+}
+
+export default function LeftSide({ newReviews }: IProps) {
   return (
     <div id="leftside">
       {newReviews.map((review) => {

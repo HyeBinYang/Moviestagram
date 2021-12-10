@@ -1,9 +1,16 @@
 import React, { useState, useCallback } from "react";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 import axios from "axios";
+import { Comment, Review } from "../../../models/model";
 
-function HomeReviewInputComment({ comments, setComments }) {
-  const userName = useSelector((state) => state.auth.userName);
+interface IProps {
+  review: Review;
+  comments: Comment[];
+  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
+}
+
+function HomeReviewInputComment({ review, comments, setComments }: IProps) {
+  const userName = useSelector((state: RootStateOrAny) => state.auth.userName);
 
   const [commentForm, setCommentForm] = useState({
     content: "",
@@ -50,13 +57,7 @@ function HomeReviewInputComment({ comments, setComments }) {
 
   return (
     <div className="home-review__write">
-      <textarea
-        type="text"
-        placeholder="댓글 달기"
-        name="content"
-        onChange={writeComment}
-        value={commentForm.content}
-      />
+      <textarea placeholder="댓글 달기" name="content" onChange={writeComment} value={commentForm.content} />
       {commentForm.content ? (
         <button className="active" onClick={submitComment}>
           게시
